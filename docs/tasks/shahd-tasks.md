@@ -13,8 +13,8 @@ If anything about the hooks or the data shape below is unclear, ask in the group
 - [ ] Pull the latest `main` branch (this brings in Ammar's foundation — routes, hooks, store, and shared components). "Pulling" means downloading the latest changes from the shared repo before you start your own work.
 - [ ] Create your feature branch (a separate copy of the code you work on so you don't touch `main` directly) with the exact name: `feature/movie-details-page`.
 - [ ] Open `pages/MovieDetails/MovieDetailsPage.jsx` (Ammar already created this empty file and linked it to URLs like `/movie/550`). Read the `id` from the URL with `useParams` from `react-router`.
-- [ ] Call `useMovieDetails(id)` from `/hooks/useMovieDetails.js` (import it exactly from that path) — it returns the standard shape `{ data, isLoading, isError, error }`, with the full movie object in `data` (fields like `title`, `overview`, `vote_average`, `genres`, `release_date`, `poster_path`).
-- [ ] While `isLoading` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [ ] Call `useMovieDetails(id)` from `/hooks/useMovieDetails.js` (import it exactly from that path) — it returns the standard shape `{ data, isPending, isError, error }`, with the full movie object in `data` (fields like `title`, `overview`, `vote_average`, `genres`, `release_date`, `poster_path`).
+- [ ] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
 - [ ] Build the core info section: poster image (use `buildImageUrl` from `/utils/buildImageUrl.js` to turn `poster_path` into a full image URL), title, overview, rating, and genres.
 
 **Acceptance criteria:** navigating to `/movie/:id` with a real movie id shows the poster, title, overview, rating, and genres for that exact movie; loading and error states show correctly.
@@ -23,8 +23,8 @@ If anything about the hooks or the data shape below is unclear, ask in the group
 
 ### Task 2 — Movie Details recommendations row
 
-- [ ] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the core info section, call `useMovieRecommendations(id)` from `/hooks/useMovieRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 1 — do not create a new variable. It returns the standard shape `{ data, isLoading, isError, error }`; the recommended movies are in `data.results`.
-- [ ] While this section's `isLoading` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [ ] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the core info section, call `useMovieRecommendations(id)` from `/hooks/useMovieRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 1 — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the recommended movies are in `data.results`.
+- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
 - [ ] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="movie" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/movie/:id` via its own inner `Link` — don't wrap it in another `Link` yourself.
 
 **Acceptance criteria:** the recommendations row shows real recommended movies as cards; this section has its own loading/error UI; clicking a heart icon on a card correctly toggles it in the wishlist.
@@ -33,8 +33,8 @@ If anything about the hooks or the data shape below is unclear, ask in the group
 
 ### Task 3 — Movie Details reviews list
 
-- [ ] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the recommendations row, call `useMovieReviews(id)` from `/hooks/useMovieReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isLoading, isError, error }`; the reviews are in `data.results`.
-- [ ] While this section's `isLoading` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [ ] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the recommendations row, call `useMovieReviews(id)` from `/hooks/useMovieReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the reviews are in `data.results`.
+- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
 - [ ] Render each review with at least the author's name and the review content (truncate long reviews if needed for layout).
 - [ ] If `data.results` is an empty array, show a simple "No reviews yet" message instead of an empty section.
 
@@ -76,8 +76,8 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 - [ ] Pull the latest `main` branch (it now includes your merged Movie Details page).
 - [ ] Create your second feature branch with the exact name: `feature/tv-show-details-page`.
 - [ ] Open `pages/TVShowDetails/TVShowDetailsPage.jsx` (Ammar already created this empty file and linked it to URLs like `/tv/1396`). Read the `id` from the URL with `useParams` from `react-router`.
-- [ ] Call `useTVShowDetails(id)` from `/hooks/useTVShowDetails.js` (import it exactly from that path). It returns the standard shape `{ data, isLoading, isError, error }`, but with the **TV field names**, not the movie ones: `name` (not `title`), `first_air_date` (not `release_date`), `number_of_seasons`, `number_of_episodes`, plus `overview`, `vote_average`, `genres`, `poster_path` like before.
-- [ ] While `isLoading` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [ ] Call `useTVShowDetails(id)` from `/hooks/useTVShowDetails.js` (import it exactly from that path). It returns the standard shape `{ data, isPending, isError, error }`, but with the **TV field names**, not the movie ones: `name` (not `title`), `first_air_date` (not `release_date`), `number_of_seasons`, `number_of_episodes`, plus `overview`, `vote_average`, `genres`, `poster_path` like before.
+- [ ] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
 - [ ] Build this as its own separate component (not a shared "Details" component reused from Task 1) — this is a deliberate spec decision to keep each page simple and reading its own real fields directly.
 - [ ] There's no Figma screen for this page, so for now just get the same sections in place: poster (use `buildImageUrl` from `/utils/buildImageUrl.js` with `poster_path`) + core info (name, first air date, number of seasons/episodes, overview, rating, genres).
 
@@ -87,8 +87,8 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 
 ### Task 7 — TV Show Details recommendations row
 
-- [ ] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the core info section, call `useTVShowRecommendations(id)` from `/hooks/useTVShowRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 6 — do not create a new variable. It returns the standard shape `{ data, isLoading, isError, error }`; the recommended TV shows are in `data.results`.
-- [ ] While this section's `isLoading` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [ ] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the core info section, call `useTVShowRecommendations(id)` from `/hooks/useTVShowRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 6 — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the recommended TV shows are in `data.results`.
+- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
 - [ ] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="tv" />` from `/components/MovieCard.jsx` — same shared component as the movie recommendations row (already navigates via its own inner `Link`, don't wrap it in another one), just with `mediaType="tv"` this time since these results are TV shows, not movies.
 
 **Acceptance criteria:** the recommendations row shows real recommended TV shows as cards; this section has its own loading/error UI; clicking a heart icon on a card correctly toggles it in the wishlist.
@@ -97,8 +97,8 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 
 ### Task 8 — TV Show Details reviews list
 
-- [ ] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the recommendations row, call `useTVShowReviews(id)` from `/hooks/useTVShowReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isLoading, isError, error }`; the reviews are in `data.results`.
-- [ ] While this section's `isLoading` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [ ] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the recommendations row, call `useTVShowReviews(id)` from `/hooks/useTVShowReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the reviews are in `data.results`.
+- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
 - [ ] Render each review with at least the author's name and the review content (truncate long reviews if needed for layout) — same approach as the movie reviews list in Task 3.
 - [ ] If `data.results` is an empty array, show a simple "No reviews yet" message instead of an empty section.
 

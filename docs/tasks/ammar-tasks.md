@@ -47,7 +47,7 @@ _Tasks 1–3 are a tightly related setup cluster — commit after each one indiv
 
 ### Task 4 — Data hooks: lists
 
-- [x] Build `useMovies(page)` in `/hooks/useMovies.js` — TanStack Query hook, calls the popular movies TMDB endpoint (`/movie/popular` only, not now-playing), returns the standard shape `{ data, isLoading, isError, error }` where `data.results` is an array of movie objects. Supports pagination via the `page` argument.
+- [x] Build `useMovies(page)` in `/hooks/useMovies.js` — TanStack Query hook, calls the popular movies TMDB endpoint (`/movie/popular` only, not now-playing), returns the standard shape `{ data, isPending, isError, error }` where `data.results` is an array of movie objects. Supports pagination via the `page` argument.
 - [x] Build `useTVShows(page)` in `/hooks/useTVShows.js` — same shape, but for the popular TV shows endpoint.
 
 **Acceptance criteria:** calling either hook from a temporary test component and logging `data` shows a real array of movies/TV shows for page 1, and a _different_ array when you pass page 2.
@@ -56,7 +56,7 @@ _Tasks 1–3 are a tightly related setup cluster — commit after each one indiv
 
 ### Task 5 — Data hooks: details
 
-- [x] Build `useMovieDetails(id)` in `/hooks/useMovieDetails.js` — returns a single movie object with full details (`title`, `release_date`, `runtime`, etc.), same `{ data, isLoading, isError, error }` shape.
+- [x] Build `useMovieDetails(id)` in `/hooks/useMovieDetails.js` — returns a single movie object with full details (`title`, `release_date`, `runtime`, etc.), same `{ data, isPending, isError, error }` shape.
 - [x] Build `useTVShowDetails(id)` in `/hooks/useTVShowDetails.js` — returns a single TV show object, but with the TV field names (`name`, `first_air_date`, `number_of_seasons`, `number_of_episodes`) instead of the movie ones. These are deliberately two separate hooks, not one generic "details" hook — keeps each consumer simple.
 
 **Acceptance criteria:** passing a real movie id / TV show id into each hook returns the correct full object with those exact fields.
@@ -133,12 +133,12 @@ _Tasks 8–10 are the state + shared-components cluster — commit after each, p
 
 ### Task 12 — Sync docs with the real foundation code
 
-- [ ] Re-read the actual code as it exists right now on `feature/foundation-setup` (`package.json`, `src/App.jsx`, `src/api/`, `src/hooks/`, `src/store/useWishlistStore.js`, `src/components/`, `src/index.css`, `src/main.jsx`) — the docs below were written from the original plan before Tasks 1–11 were built, so a few details have drifted from what's actually there now. Trust the real code over the old wording wherever they disagree.
-- [ ] Update `docs/movie-app-spec.md`: team table (Wishlist Page belongs to Mariam, not Sahar), routing is `react-router` (v8) not "React Router DOM" (there is no `react-router-dom` package), `useMovies` calls the popular endpoint only, document the `data` shape difference between list vs. details hooks, `useSearchMovies`'s `enabled: Boolean(query)`, `useTrending()` taking no `page` argument, the real `MovieCard` behavior (date, percent rating ring, inner `Link` — never wrap it in another `Link`), the wishlist store's `persist` middleware (and the same decision for the future theme store), and the real `@theme` tokens in `src/index.css` (no `tailwind.config.js`, no `accent` token).
-- [ ] Update `.cursor/rules/stack-conventions.mdc`: same `react-router` fix, swap the made-up `movieApi.js` naming example for the real `getMovies.js` / `searchMovies.js` pattern, and swap the made-up `API_BASE_URL` constant example for the real `TMDB_BASE_URL` / `IMAGE_BASE_URL`.
-- [ ] In this file (further down): fix Task 2's wording (installed package is `react-router`, not `react-router-dom`), Task 4 (popular endpoint only, not now-playing/popular), Task 10 (`MovieCard` description matches the real UI — link, date, rating ring — props stay `item` + `mediaType`), and Task 18 (theme store uses `persist` middleware like the wishlist, not manual `localStorage`).
-- [ ] Fix `from 'react-router-dom'` → `from 'react-router'` in `docs/tasks/ibrahim-tasks.md` (`useSearchParams`), `docs/tasks/sahar-tasks.md` (`useNavigate`, `useSearchParams`), `docs/tasks/shahd-tasks.md` (`useParams`), and `docs/tasks/mariam-tasks.md` (`useSearchParams`) — keep each teammate's own hook-teaching intact, only the package name changes.
-- [ ] Update `foundation-docs.md` (the prompt for the later chat that writes `docs/team-guide.md` in Task 13 below) so it matches the real code before that chat runs: the full real list of ten hooks (including TV recommendations/reviews and `useTrending`), real token names instead of the made-up `text-accent`, mention `Layout` and `formatDate`, the wishlist `persist` middleware as implemented, and a short note that `<Toaster />` already lives in `src/main.jsx` (`toast` = confirmations only, never a replacement for `<Loader />` / `<ErrorState />`).
+- [x] Re-read the actual code as it exists right now on `feature/foundation-setup` (`package.json`, `src/App.jsx`, `src/api/`, `src/hooks/`, `src/store/useWishlistStore.js`, `src/components/`, `src/index.css`, `src/main.jsx`) — the docs below were written from the original plan before Tasks 1–11 were built, so a few details have drifted from what's actually there now. Trust the real code over the old wording wherever they disagree.
+- [x] Update `docs/movie-app-spec.md`: team table (Wishlist Page belongs to Mariam, not Sahar), routing is `react-router` (v8) not "React Router DOM" (there is no `react-router-dom` package), `useMovies` calls the popular endpoint only, document the `data` shape difference between list vs. details hooks, `useSearchMovies`'s `enabled: Boolean(query)`, `useTrending()` taking no `page` argument, the real `MovieCard` behavior (date, percent rating ring, inner `Link` — never wrap it in another `Link`), the wishlist store's `persist` middleware (and the same decision for the future theme store), and the real `@theme` tokens in `src/index.css` (no `tailwind.config.js`, no `accent` token).
+- [x] Update `.cursor/rules/stack-conventions.mdc`: same `react-router` fix, swap the made-up `movieApi.js` naming example for the real `getMovies.js` / `searchMovies.js` pattern, and swap the made-up `API_BASE_URL` constant example for the real `TMDB_BASE_URL` / `IMAGE_BASE_URL`.
+- [x] In this file (further down): fix Task 2's wording (installed package is `react-router`, not `react-router-dom`), Task 4 (popular endpoint only, not now-playing/popular), Task 10 (`MovieCard` description matches the real UI — link, date, rating ring — props stay `item` + `mediaType`), and Task 18 (theme store uses `persist` middleware like the wishlist, not manual `localStorage`).
+- [x] Fix `from 'react-router-dom'` → `from 'react-router'` in `docs/tasks/ibrahim-tasks.md` (`useSearchParams`), `docs/tasks/sahar-tasks.md` (`useNavigate`, `useSearchParams`), `docs/tasks/shahd-tasks.md` (`useParams`), and `docs/tasks/mariam-tasks.md` (`useSearchParams`) — keep each teammate's own hook-teaching intact, only the package name changes.
+- [x] Update `foundation-docs.md` (the prompt for the later chat that writes `docs/team-guide.md` in Task 13 below) so it matches the real code before that chat runs: the full real list of ten hooks (including TV recommendations/reviews and `useTrending`), real token names instead of the made-up `text-accent`, mention `Layout` and `formatDate`, the wishlist `persist` middleware as implemented, and a short note that `<Toaster />` already lives in `src/main.jsx` (`toast` = confirmations only, never a replacement for `<Loader />` / `<ErrorState />`).
 
 **Acceptance criteria:** every doc file listed above describes the code exactly as it exists today on `feature/foundation-setup` — no teammate task file still imports from `react-router-dom`, and the spec, the stack-conventions rule, and this task file no longer contradict the real hooks, store, or `MovieCard` behavior.
 
@@ -146,7 +146,7 @@ _Tasks 8–10 are the state + shared-components cluster — commit after each, p
 
 ### Task 13 — Team documentation
 
-- [ ] Write `docs/team-guide.md` covering: the folder structure, naming conventions, and exactly how to consume every hook/store/component listed above (with real import paths and usage examples).
+- [x] Write `docs/team-guide.md` covering: the folder structure, naming conventions, and exactly how to consume every hook/store/component listed above (with real import paths and usage examples).
 
 **Acceptance criteria:** a teammate with no other context could read `docs/team-guide.md` and correctly import and use `useMovies`, `useWishlistStore`, and `<MovieCard />` without asking you anything.
 

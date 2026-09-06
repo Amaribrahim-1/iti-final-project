@@ -82,7 +82,7 @@ These are the exact interfaces Ammar's foundation work (Section 5) exposes to th
 
 ### 4.1 Data-fetching hooks (TanStack Query, built on the Axios instance)
 
-All return the standard TanStack Query shape: `{ data, isLoading, isError, error }`. List hooks return TMDB list JSON, so the array is inside `data.results` (`{ page, results, total_pages, total_results }`); details hooks return the object itself directly as `data` (not wrapped in `results`).
+All return the standard TanStack Query shape: `{ data, isPending, isError, error }`. List hooks return TMDB list JSON, so the array is inside `data.results` (`{ page, results, total_pages, total_results }`); details hooks return the object itself directly as `data` (not wrapped in `results`).
 
 - `useMovies(page)` → popular movies list (`/movie/popular` only — not now-playing), `data.results` is an array of movie objects, supports pagination.
 - `useTVShows(page)` → popular TV shows list (`/tv/popular`), same shape.
