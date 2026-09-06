@@ -24,7 +24,7 @@ There are three parts in this file: the **core foundation** (blocks the team, do
 
 ### Task 2 — Routing skeleton
 
-- [x] Install `react-router-dom` (latest version).
+- [x] Install `react-router` (latest version — note: this is the `react-router` package itself, not `react-router-dom`).
 - [x] Register all routes with placeholder page components, using these exact file paths so the rest of the team knows exactly which file to open later: `pages/Home/HomePage.jsx` → `/`, `pages/MovieDetails/MovieDetailsPage.jsx` → `/movie/:id`, `pages/TVShowDetails/TVShowDetailsPage.jsx` → `/tv/:id`, `pages/SearchResults/SearchResultsPage.jsx` → `/search`, `pages/Wishlist/WishlistPage.jsx` → `/wishlist`, `pages/Trending/TrendingPage.jsx` → `/trending`, `pages/AIAssistant/AIAssistantPage.jsx` → `/ai-assistant`.
 - [x] Build a `Layout` component with a Navbar slot (empty for now, Sahar fills it in later) and a page outlet (`<Outlet />`) for the routed page content.
 
@@ -47,7 +47,7 @@ _Tasks 1–3 are a tightly related setup cluster — commit after each one indiv
 
 ### Task 4 — Data hooks: lists
 
-- [x] Build `useMovies(page)` in `/hooks/useMovies.js` — TanStack Query hook, calls the now-playing/popular movies TMDB endpoint, returns the standard shape `{ data, isLoading, isError, error }` where `data.results` is an array of movie objects. Supports pagination via the `page` argument.
+- [x] Build `useMovies(page)` in `/hooks/useMovies.js` — TanStack Query hook, calls the popular movies TMDB endpoint (`/movie/popular` only, not now-playing), returns the standard shape `{ data, isLoading, isError, error }` where `data.results` is an array of movie objects. Supports pagination via the `page` argument.
 - [x] Build `useTVShows(page)` in `/hooks/useTVShows.js` — same shape, but for the popular TV shows endpoint.
 
 **Acceptance criteria:** calling either hook from a temporary test component and logging `data` shows a real array of movies/TV shows for page 1, and a _different_ array when you pass page 2.
@@ -111,7 +111,7 @@ _Tasks 4–7 are the data-hooks cluster — commit after each, push once all fou
 
 ### Task 10 — Shared component: MovieCard
 
-- [x] Build `<MovieCard item={movieOrTvObject} mediaType="movie" | "tv" />` in `/components/MovieCard.jsx` — shows poster, title, and rating, plus a heart icon wired to `toggleWishlist` / `isInWishlist` from `useWishlistStore()`. The heart fills with the site's primary color when the item is already in the wishlist.
+- [x] Build `<MovieCard item={movieOrTvObject} mediaType="movie" | "tv" />` in `/components/MovieCard.jsx` — shows poster, title, formatted date (via `formatDate`), a circular percent rating ring, and a heart icon wired to `toggleWishlist` / `isInWishlist` from `useWishlistStore()`. The heart fills with the site's primary color when the item is already in the wishlist. The poster + title are wrapped in one inner `Link` to the details page — the card is not meant to be wrapped in another `Link` by whoever consumes it. Props stay exactly `item` + `mediaType`.
 - [x] This one component gets reused everywhere: Home page, Search Results, recommendations, Wishlist page, Trending page — so keep its props exactly as specified above, don't add required props that would break a future consumer.
 
 **Acceptance criteria:** rendering `<MovieCard />` with a real movie object shows poster/title/rating correctly; clicking the heart toggles it filled/unfilled and actually updates the wishlist store.
@@ -131,7 +131,20 @@ _Tasks 8–10 are the state + shared-components cluster — commit after each, p
 
 **Commit now with message:** `feat: extract figma design tokens into tailwind theme`
 
-### Task 12 — Team documentation
+### Task 12 — Sync docs with the real foundation code
+
+- [ ] Re-read the actual code as it exists right now on `feature/foundation-setup` (`package.json`, `src/App.jsx`, `src/api/`, `src/hooks/`, `src/store/useWishlistStore.js`, `src/components/`, `src/index.css`, `src/main.jsx`) — the docs below were written from the original plan before Tasks 1–11 were built, so a few details have drifted from what's actually there now. Trust the real code over the old wording wherever they disagree.
+- [ ] Update `docs/movie-app-spec.md`: team table (Wishlist Page belongs to Mariam, not Sahar), routing is `react-router` (v8) not "React Router DOM" (there is no `react-router-dom` package), `useMovies` calls the popular endpoint only, document the `data` shape difference between list vs. details hooks, `useSearchMovies`'s `enabled: Boolean(query)`, `useTrending()` taking no `page` argument, the real `MovieCard` behavior (date, percent rating ring, inner `Link` — never wrap it in another `Link`), the wishlist store's `persist` middleware (and the same decision for the future theme store), and the real `@theme` tokens in `src/index.css` (no `tailwind.config.js`, no `accent` token).
+- [ ] Update `.cursor/rules/stack-conventions.mdc`: same `react-router` fix, swap the made-up `movieApi.js` naming example for the real `getMovies.js` / `searchMovies.js` pattern, and swap the made-up `API_BASE_URL` constant example for the real `TMDB_BASE_URL` / `IMAGE_BASE_URL`.
+- [ ] In this file (further down): fix Task 2's wording (installed package is `react-router`, not `react-router-dom`), Task 4 (popular endpoint only, not now-playing/popular), Task 10 (`MovieCard` description matches the real UI — link, date, rating ring — props stay `item` + `mediaType`), and Task 18 (theme store uses `persist` middleware like the wishlist, not manual `localStorage`).
+- [ ] Fix `from 'react-router-dom'` → `from 'react-router'` in `docs/tasks/ibrahim-tasks.md` (`useSearchParams`), `docs/tasks/sahar-tasks.md` (`useNavigate`, `useSearchParams`), `docs/tasks/shahd-tasks.md` (`useParams`), and `docs/tasks/mariam-tasks.md` (`useSearchParams`) — keep each teammate's own hook-teaching intact, only the package name changes.
+- [ ] Update `foundation-docs.md` (the prompt for the later chat that writes `docs/team-guide.md` in Task 13 below) so it matches the real code before that chat runs: the full real list of ten hooks (including TV recommendations/reviews and `useTrending`), real token names instead of the made-up `text-accent`, mention `Layout` and `formatDate`, the wishlist `persist` middleware as implemented, and a short note that `<Toaster />` already lives in `src/main.jsx` (`toast` = confirmations only, never a replacement for `<Loader />` / `<ErrorState />`).
+
+**Acceptance criteria:** every doc file listed above describes the code exactly as it exists today on `feature/foundation-setup` — no teammate task file still imports from `react-router-dom`, and the spec, the stack-conventions rule, and this task file no longer contradict the real hooks, store, or `MovieCard` behavior.
+
+**Commit now with message:** `docs: sync spec and task docs with actual foundation code`
+
+### Task 13 — Team documentation
 
 - [ ] Write `docs/team-guide.md` covering: the folder structure, naming conventions, and exactly how to consume every hook/store/component listed above (with real import paths and usage examples).
 
@@ -139,7 +152,7 @@ _Tasks 8–10 are the state + shared-components cluster — commit after each, p
 
 **Commit now with message:** `docs: add team guide for folder structure and shared contracts`
 
-### Task 13 — Repo setup and handoff (final task of Part 1)
+### Task 14 — Repo setup and handoff (final task of Part 1)
 
 - [ ] Make sure you've tested everything above yourself in the browser — every hook returns real data, the wishlist store works, `<MovieCard />` toggles correctly, and all placeholder routes render.
 - [ ] Push the branch (`git push -u origin feature/foundation-setup`) if you haven't already.
@@ -154,7 +167,7 @@ This is the only PR for the **core foundation** part of this file. The AI Assist
 
 ## Part 2 — AI Movie Assistant (after the core foundation is merged, doesn't block anyone)
 
-### Task 14 — Chat UI
+### Task 15 — Chat UI
 
 - [ ] Pull the latest `main` (now includes your merged foundation). Create branch: `feature/ai-movie-assistant`.
 - [ ] Build the chat UI on the `/ai-assistant` route (already registered in Task 2): a message list that visually distinguishes user messages from AI messages, a text input + send button, a loading state while waiting for a response, and a graceful error message (using `<ErrorState />`) if something fails.
@@ -164,7 +177,7 @@ This is the only PR for the **core foundation** part of this file. The AI Assist
 
 **Commit now with message:** `feat: add ai movie assistant chat ui`
 
-### Task 15 — Gemini API integration
+### Task 16 — Gemini API integration
 
 - [ ] Wire the chat to the real Gemini API, reading the key from `import.meta.env.VITE_GEMINI_API_KEY`.
 - [ ] Send the current message plus the prior conversation turns (so it's a real multi-turn conversation, not single-shot).
@@ -174,7 +187,7 @@ This is the only PR for the **core foundation** part of this file. The AI Assist
 
 **Commit now with message:** `feat: integrate gemini api with movie-restricted system prompt`
 
-### Task 16 — Final polish and PR (final task of Part 2)
+### Task 17 — Final polish and PR (final task of Part 2)
 
 - [ ] Test the full conversation flow yourself in the browser: multi-turn conversation, off-topic redirect, loading state, and a deliberate API error (e.g. temporarily break the key) to confirm the error state shows gracefully.
 - [ ] Push the branch, open a PR from `feature/ai-movie-assistant` into `main` describing the chatbot and its system prompt, then merge it yourself once you've re-checked it.
@@ -186,18 +199,18 @@ This is the only PR for the AI Movie Assistant part of this file.
 
 ## Part 3 — Dark/Light Mode Toggle (bonus, low-risk, can be done any time)
 
-### Task 17 — Theme store and Tailwind wiring
+### Task 18 — Theme store and Tailwind wiring
 
 - [ ] Pull the latest `main`. Create branch: `feature/dark-mode-toggle`.
-- [ ] Build `useThemeStore()` (Zustand) in `/store/useThemeStore.js` holding the current theme (`'light'` or `'dark'`), persisted manually to `localStorage` (read the saved value on init, write it on every toggle — no persist middleware needed for something this small).
+- [ ] Build `useThemeStore()` (Zustand) in `/store/useThemeStore.js` holding the current theme (`'light'` or `'dark'`), persisted with `persist` from `zustand/middleware` — same pattern as the wishlist store (Task 8), not a hand-rolled `localStorage` read/write.
 - [ ] Configure Tailwind for `dark:` variant classes, and apply the `dark` class to the root HTML element based on the store's current value.
-- [ ] Add the toggle control itself somewhere temporary for now (real placement inside the Navbar is Task 18) — coordinate the final placement with Sahar since the Navbar is her package.
+- [ ] Add the toggle control itself somewhere temporary for now (real placement inside the Navbar is Task 19) — coordinate the final placement with Sahar since the Navbar is her package.
 
 **Acceptance criteria:** clicking the toggle switches the theme and any element using a `dark:` class visibly changes; refreshing the page keeps the theme you last picked (because of `localStorage`).
 
 **Commit now with message:** `feat: add theme store with dark mode tailwind support`
 
-### Task 18 — Navbar placement and final PR (final task of Part 3)
+### Task 19 — Navbar placement and final PR (final task of Part 3)
 
 - [ ] Coordinate with Sahar to place the actual toggle control inside the real Navbar (once her Navbar work exists) — if her Navbar isn't merged yet, leave the toggle in a temporary spot for now and revisit this specific step later; it doesn't block the PR below.
 - [ ] Test the toggle + persistence once more in the browser.

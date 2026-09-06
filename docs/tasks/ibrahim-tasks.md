@@ -20,7 +20,7 @@ Note: unlike Sahar's, Shahd's, and Mariam's packages (which each cover two separ
 
 ### Task 2 — Wire tab switching to the URL
 
-- [ ] Make the active tab reflected in the URL as a query param (e.g. `?tab=movies` or `?tab=tv`) using `useSearchParams` from `react-router-dom`, so the tab survives a page refresh.
+- [ ] Make the active tab reflected in the URL as a query param (e.g. `?tab=movies` or `?tab=tv`) using `useSearchParams` from `react-router`, so the tab survives a page refresh.
 - [ ] Clicking a tab updates both the active tab state and the URL.
 
 **Acceptance criteria:** clicking "TV Shows" changes the URL to include `?tab=tv`; refreshing the page on that URL keeps "TV Shows" selected as active.

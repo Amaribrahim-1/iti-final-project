@@ -19,7 +19,7 @@ Beyond the required scope, the team is adding a few bonus features not present i
 
 - **Ammar** — Team Leader: owns the repo, reviews and merges every Pull Request, resolves merge conflicts, and builds the project foundation (Section 5) before assigning tasks.
 - **Ibrahim** — Package A (Home Page).
-- **Sahar** — Package B (Navbar, Search Results, Wishlist Page).
+- **Sahar** — Package B (Navbar, Search Results).
 - **Shahd** — Package C (Movie Details Page + TV Show Details Page).
 - **Mariam** — Package D (Wishlist Page + Trending Page — bonus feature).
 
@@ -33,14 +33,14 @@ None of the 5 members have used GitHub collaboratively before (no PRs, no merge/
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | Build tool              | Vite                                                                                                                     |
 | Language                | JavaScript (no TypeScript — keeps things consistent and accessible across the whole team)                                |
-| Routing                 | React Router DOM (latest version)                                                                                        |
+| Routing                 | `react-router` (v8) — note: this is the `react-router` package itself, not `react-router-dom`; imports are `from 'react-router'` (and `RouterProvider` from `'react-router/dom'`) |
 | Data fetching           | TanStack Query (React Query)                                                                                             |
 | HTTP client             | Axios (single configured instance)                                                                                       |
 | Global state (wishlist) | Zustand                                                                                                                  |
 | Global state (theme)    | Zustand (bonus feature, see Section 5)                                                                                   |
 | Styling                 | Tailwind CSS                                                                                                             |
 | Icons                   | lucide-react                                                                                                             |
-| Notifications           | react-hot-toast                                                                                                          |
+| Notifications           | react-hot-toast — already installed and mounted once as `<Toaster />` in `src/main.jsx`; use `toast.success(...)` / `toast.error(...)` for short confirmations only, never as a replacement for `<Loader />` / `<ErrorState />` |
 | AI chatbot              | Gemini API, called directly from the frontend (explicitly allowed by the assignment — no backend needed to hide the key) |
 
 **Environment variables** (`.env`, must be gitignored):
@@ -56,7 +56,7 @@ VITE_GEMINI_API_KEY=...
 https://image.tmdb.org/t/p/w500/${poster_path}
 ```
 
-This should live in one shared helper in `/utils` — never hardcoded per-component.
+This should live in one shared helper in `/utils` (`buildImageUrl.js`) — never hardcoded per-component. Display dates (e.g. `release_date`, `first_air_date`) go through another `/utils` helper, `formatDate.js`, which turns the raw TMDB date string into a short `en-US` date and returns `''` if the date is missing/invalid.
 
 ---
 
@@ -82,22 +82,22 @@ These are the exact interfaces Ammar's foundation work (Section 5) exposes to th
 
 ### 4.1 Data-fetching hooks (TanStack Query, built on the Axios instance)
 
-All return the standard TanStack Query shape: `{ data, isLoading, isError, error }`.
+All return the standard TanStack Query shape: `{ data, isLoading, isError, error }`. List hooks return TMDB list JSON, so the array is inside `data.results` (`{ page, results, total_pages, total_results }`); details hooks return the object itself directly as `data` (not wrapped in `results`).
 
-- `useMovies(page)` → now-playing/popular movies list, `data.results` is an array of movie objects, supports pagination.
-- `useTVShows(page)` → popular TV shows list, same shape.
-- `useMovieDetails(id)` → single movie object with full details (fields like `title`, `release_date`, `runtime`).
+- `useMovies(page)` → popular movies list (`/movie/popular` only — not now-playing), `data.results` is an array of movie objects, supports pagination.
+- `useTVShows(page)` → popular TV shows list (`/tv/popular`), same shape.
+- `useMovieDetails(id)` → single movie object with full details (fields like `title`, `release_date`, `runtime`) — `data` is the movie object directly, not `data.results`.
 - `useTVShowDetails(id)` → single TV show object with full details (fields like `name`, `first_air_date`, `number_of_seasons`, `number_of_episodes` — note the different field names from movies).
 - `useMovieRecommendations(movieId)` → `data.results` array of recommended movies.
 - `useMovieReviews(movieId)` → `data.results` array of review objects.
 - `useTVShowRecommendations(tvId)` → same shape as `useMovieRecommendations`, but calls TMDB's `/tv/{id}/recommendations` — `data.results` is an array of recommended TV shows.
 - `useTVShowReviews(tvId)` → same shape as `useMovieReviews`, but calls TMDB's `/tv/{id}/reviews` — `data.results` is an array of review objects for that TV show.
-- `useSearchMovies(query, page)` → `data.results` array of movie search results.
-- `useTrending()` → **bonus hook, not part of the original requirements**, built specifically to unblock Mariam's Trending page (Package D). Calls TMDB's `/trending/all/day` endpoint, `data.results` is a mixed array of movies and TV shows (each item has a `media_type` field already provided by TMDB). Unlike the AI chatbot, this hook must be built and merged as part of the foundation (Phase 0) — Mariam's whole package depends on it, so it can't be deferred the way the chatbot is.
+- `useSearchMovies(query, page = 1)` → `data.results` array of movie search results. Uses `enabled: Boolean(query)` internally, so it does **not** fire a request while `query` is empty — no need to guard the call yourself.
+- `useTrending()` → **bonus hook, not part of the original requirements**, built specifically to unblock Mariam's Trending page (Package D). Calls TMDB's `/trending/all/day` endpoint, `data.results` is a mixed array of movies and TV shows (each item has a `media_type` field already provided by TMDB). **Takes no `page` argument** — it always fetches page 1 (see Section 8 for the optional pagination follow-up). Unlike the AI chatbot, this hook must be built and merged as part of the foundation (Phase 0) — Mariam's whole package depends on it, so it can't be deferred the way the chatbot is.
 
 ### 4.2 Wishlist state (Zustand store)
 
-Exposed via a `useWishlistStore()` hook (Zustand), selected like `useWishlistStore((state) => state.wishlist)`:
+Exposed via a `useWishlistStore()` hook (Zustand), selected like `useWishlistStore((state) => state.wishlist)`. The store is wrapped in `persist` from `zustand/middleware` (not a hand-rolled `localStorage` read/write) with `name: 'wishlist'` and `partialize: (state) => ({ wishlist: state.wishlist })`, so the wishlist survives a page refresh automatically:
 
 ```js
 const wishlist = useWishlistStore((state) => state.wishlist)
@@ -115,14 +115,15 @@ const removeFromWishlist = useWishlistStore((state) => state.removeFromWishlist)
 
 ### 4.3 Shared components (built as part of the foundation)
 
-- `<MovieCard item={movieOrTvObject} mediaType="movie" | "tv" />` — poster, title, rating, and a heart icon wired to `toggleWishlist`/`isInWishlist`. The heart fills with the site's primary color when the item is in the wishlist. Used on the Home page, Search Results, recommendations, Wishlist page, and the Trending page.
+- `<MovieCard item={movieOrTvObject} mediaType="movie" | "tv" />` — poster (via `buildImageUrl`), title (`item.title || item.name`), formatted date (via `formatDate` on `release_date` or `first_air_date`), a circular **percent** rating ring, and a heart icon wired to `toggleWishlist`/`isInWishlist`. The heart fills with the site's primary color when the item is in the wishlist. The whole poster + title is already an inner `Link` to `/movie/:id` or `/tv/:id` — **never wrap `<MovieCard />` in another `Link`**. Used on the Home page, Search Results, recommendations, Wishlist page, and the Trending page. Only `item` and `mediaType` are required — don't add new required props.
 - `<Loader />`, `<ErrorState message />` — shared loading/error UI, used anywhere a query is in flight or fails. Every page must use these instead of a custom spinner/error message.
+- `<Layout />` — wraps every route via `<Outlet />`; holds the (currently empty) Navbar slot that Sahar fills in later.
 
 Anyone building a page just imports and consumes these — no one except Ammar needs to touch how the store or the hooks are implemented internally.
 
 ### 4.4 Theme state (Zustand store) — bonus feature
 
-Exposed via a `useThemeStore()` hook (Zustand), built and owned entirely by Ammar (see Section 5). Other pages don't need to interact with this directly — Tailwind's `dark:` variant classes handle the visual side automatically once the toggle sets a `dark` class on the root element.
+Exposed via a `useThemeStore()` hook (Zustand), built and owned entirely by Ammar (see Section 5). Same persistence decision as the wishlist store: wrapped in `persist` from `zustand/middleware`, not a hand-rolled `localStorage` read/write. Other pages don't need to interact with this directly — Tailwind's `dark:` variant classes handle the visual side automatically once the toggle sets a `dark` class on the root element.
 
 **Design decision — no generic "Details" component:** Movie Details and TV Show Details are built as two separate components/pages, each reading its own real field names directly, rather than one generic component fed by a normalized data shape. This keeps each page simple and readable on its own, in line with keeping the code at a fresher-friendly level rather than adding an extra abstraction layer.
 
@@ -133,12 +134,12 @@ Exposed via a `useThemeStore()` hook (Zustand), built and owned entirely by Amma
 Must be finished and merged into `main` before the other 4 members start pulling and branching.
 
 1. **Project scaffolding**: Vite + React app, Tailwind configured, feature-based folder structure (see `stack-conventions.mdc` / `docs/team-guide.md` for the full convention), ESLint/Prettier baseline, `.env.example`.
-2. **Routing skeleton**: all routes registered in React Router with placeholder page components (`/`, `/movie/:id`, `/tv/:id`, `/search`, `/wishlist`, `/trending`, `/ai-assistant`), plus the app `Layout` (Navbar slot + page outlet).
-3. **API layer**: Axios instance with TMDB base URL + API key, plus the shared image-URL helper (Section 2).
+2. **Routing skeleton**: all routes registered with `createBrowserRouter` (`react-router`) in `src/App.jsx`, with placeholder page components (`/`, `/movie/:id`, `/tv/:id`, `/search`, `/wishlist`, `/trending`, `/ai-assistant`), plus the app `Layout` (Navbar slot + page outlet).
+3. **API layer**: a single `tmdbClient` Axios instance with the TMDB base URL + API key, plus one function file per endpoint (default export, filename = function name, e.g. `getMovies.js`, `searchMovies.js`) and the shared image-URL helper (Section 2). Pages and UI components never import `tmdbClient` or these API files directly — everything goes through a `use*` hook.
 4. **Data hooks**: all TanStack Query hooks listed in Section 4.1, **including** `useTrending()` — this one is required before handoff since Mariam's package depends on it, unlike the chatbot below.
 5. **Wishlist Store**: Zustand implementation behind `useWishlistStore()` as specified in Section 4.2.
 6. **Shared components**: `MovieCard`, `Loader`, `ErrorState` as specified in Section 4.3.
-7. **Design tokens**: fetch the Figma file directly (link in Section 1) and extract the actual design system — primary color, background, text colors, any accent/rating/error colors, and typography — then wire them into the Tailwind config so the rest of the team is styling against real values, not placeholders.
+7. **Design tokens**: fetch the Figma file directly (link in Section 1) and extract the actual design system — primary color, background, text colors, any rating/error colors, and typography — then wire them into `@theme` inside `src/index.css` (Tailwind v4 — there is **no** `tailwind.config.js`) so the rest of the team is styling against real values, not placeholders. There is no `accent` token; use the real token names (`primary`, `background`, `surface`, `dark`, `muted`, `error`, `rating-high`, `rating-mid`, `rating-low`, `rating-track`).
 8. **Team documentation**: generate `docs/team-guide.md` covering the folder structure, naming conventions, and how to consume every hook/store/component above (see the dedicated Cursor prompt for this).
 9. **Repo setup**: create the GitHub repo, push the foundation on its own branch, open a PR to `main`, merge it yourself, then hand out task packages (Section 6) to the team.
 
@@ -152,7 +153,7 @@ Must be finished and merged into `main` before the other 4 members start pulling
 
 **Dark/Light Mode Toggle** (bonus feature, Ammar's own — not part of the original requirements):
 
-- `useThemeStore()` (Zustand) holding the current theme, persisted manually to `localStorage` (read on init, written on toggle — no persist middleware needed for something this small).
+- `useThemeStore()` (Zustand) holding the current theme, persisted with `persist` from `zustand/middleware` — same pattern as the wishlist store (Section 4.2), not a hand-rolled `localStorage` read/write.
 - A toggle control in the Navbar (coordinate placement with Sahar since the Navbar is her package).
 - Tailwind configured for `dark:` variants; applying the `dark` class to the root element based on the store's value.
 - Low-risk, non-blocking: can be built and merged at any point, even after other pages are already in — worst case it needs a small follow-up pass adding `dark:` classes to a page that didn't have them yet.

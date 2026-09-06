@@ -70,7 +70,7 @@ This is the only Pull Request for the Wishlist Page branch — if Ammar asks for
 - [ ] Create your second feature branch with the exact name: `feature/trending-page`.
 - [ ] Open `pages/Trending/TrendingPage.jsx` (Ammar already created this empty file and linked it to `/trending`). Call `useTrending()` from `/hooks/useTrending.js` (import it exactly from that path, no arguments needed) — it returns the standard shape `{ data, isLoading, isError, error }`. `data.results` is a **mixed** array of movies and TV shows, and TMDB already includes a `media_type` field (`"movie"` or `"tv"`) on every item — you don't need to add it yourself.
 - [ ] While `isLoading` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render `data.results` as a grid of `<MovieCard item={item} mediaType={item.media_type} />` from `/components/MovieCard.jsx` (this shared component already handles the poster, title, rating, and wishlist heart icon internally) — note you pass each item's own real `media_type` here, not a hardcoded `"movie"`.
+- [ ] Render `data.results` as a grid of `<MovieCard item={item} mediaType={item.media_type} />` from `/components/MovieCard.jsx` (this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/movie/:id` or `/tv/:id` via its own inner `Link` — don't wrap it in another `Link` yourself) — note you pass each item's own real `media_type` here, not a hardcoded `"movie"`.
 
 **Acceptance criteria:** `/trending` shows a single grid mixing movie posters and TV show posters together, all with correct titles and ratings.
 
@@ -79,7 +79,7 @@ This is the only Pull Request for the Wishlist Page branch — if Ammar asks for
 **Optional (not required — skip this if you want, no impact on your PR):** If you'd like to practice pagination the same way Ibrahim does on the Home page, you can add Previous/Next buttons after the grid from Task 6 is working.
 
 How, in short:
-1. In `TrendingPage.jsx`, read the current page from the URL with `useSearchParams` from `react-router-dom` (e.g. `/trending?page=2`). You don't need a separate `useState` for the page number — the URL is the source of truth. Pass that number into `useTrending(page)`.
+1. In `TrendingPage.jsx`, read the current page from the URL with `useSearchParams` from `react-router` (e.g. `/trending?page=2`). You don't need a separate `useState` for the page number — the URL is the source of truth. Pass that number into `useTrending(page)`.
 2. Add "Previous" / "Next" buttons under the grid. Disable Previous on page 1. Next just increments. Clicking them should update the URL so a refresh and the browser back button keep the right page.
 3. `useTrending()` and `getTrending()` currently take no arguments and always fetch page 1. To support this, change them the same way `useMovies(page)` / `getMovies(page)` already work:
    - In `src/api/getTrending.js`, make `getTrending(page)` call `/trending/all/day` with `params: { page }`.
