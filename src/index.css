@@ -1,1 +1,19 @@
 @import 'tailwindcss';
+
+@theme {
+  --color-primary: #ffe353;
+  --color-background: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-dark: #000000;
+  --color-muted: #9f9f9f;
+  --color-error: #dc2626;
+  --color-rating-high: #21d07a;
+  --color-rating-mid: #fbab32;
+  --color-rating-low: #f47f78;
+  --color-rating-track: #081c22;
+  --font-sans: 'Roboto', sans-serif;
+}
+
+body {
+  @apply bg-background font-sans text-dark;
+}

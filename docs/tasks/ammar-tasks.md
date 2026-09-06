@@ -124,12 +124,12 @@ _Tasks 8–10 are the state + shared-components cluster — commit after each, p
 
 ### Task 11 — Design tokens from Figma
 
-- [ ] Open the Figma file (`https://www.figma.com/file/jvGvsGLg6X3T7JPU3E2rNl/Movie-App`) and extract the real design system: primary color, background color, text colors, any accent/rating/error colors, and typography (font family, sizes).
-- [ ] Wire these into `tailwind.config.js` as custom theme values, so the rest of the team styles against real values instead of guessing colors.
+- [x] Open the Figma file (`https://www.figma.com/file/jvGvsGLg6X3T7JPU3E2rNl/Movie-App`) and extract the real design system: primary color, background color, text colors, any accent/rating/error colors, and typography (font family, sizes).
+- [x] Wire these into `@theme` in `src/index.css` as custom theme values (Tailwind v4 — there is no `tailwind.config.js`), so the rest of the team styles against real values instead of guessing colors.
 
-**Acceptance criteria:** `tailwind.config.js` has named custom colors/fonts matching Figma (e.g. `primary`, `background`, `error`), and you can use them as Tailwind classes (e.g. `bg-primary`) in a test element and see the right color.
+**Acceptance criteria:** `src/index.css` `@theme` has named custom colors/fonts matching Figma (e.g. `--color-primary`, `--color-background`, `--color-error`), and you can use them as Tailwind classes (e.g. `bg-primary`).
 
-**Commit now with message:** `feat: extract figma design tokens into tailwind config`
+**Commit now with message:** `feat: extract figma design tokens into tailwind theme`
 
 ### Task 12 — Team documentation
 

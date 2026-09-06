@@ -9,14 +9,14 @@ const RATING_CIRCUMFERENCE = 2 * Math.PI * RATING_RADIUS
 
 function getRatingRingClass(percent) {
   if (percent >= 70) {
-    return 'stroke-green-400'
+    return 'stroke-rating-high'
   }
 
   if (percent >= 40) {
-    return 'stroke-yellow-400'
+    return 'stroke-rating-mid'
   }
 
-  return 'stroke-red-500'
+  return 'stroke-rating-low'
 }
 
 function MovieCard({ item, mediaType }) {
@@ -56,7 +56,7 @@ function MovieCard({ item, mediaType }) {
             )}
           </div>
           <div className="absolute -bottom-5 left-2 flex h-10 w-10 items-center justify-center">
-            <div className="absolute inset-0 rounded-full bg-gray-900" />
+            <div className="absolute inset-0 rounded-full bg-rating-track" />
             <svg
               className="absolute inset-0 -rotate-90"
               viewBox="0 0 40 40"
@@ -88,12 +88,12 @@ function MovieCard({ item, mediaType }) {
             </span>
           </div>
         </div>
-        <h3 className="mt-7 line-clamp-2 leading-tight font-semibold text-gray-900 group-hover:text-yellow-500">
+        <h3 className="mt-7 line-clamp-2 leading-tight font-semibold text-dark group-hover:text-primary">
           {title}
         </h3>
       </Link>
       <div className="mt-0 flex items-start justify-between gap-2">
-        <p className="text-sm text-gray-500">{formattedDate}</p>
+        <p className="text-sm text-muted">{formattedDate}</p>
         <button
           type="button"
           onClick={handleHeartClick}
@@ -103,7 +103,7 @@ function MovieCard({ item, mediaType }) {
         >
           <Heart
             className={
-              isInWishlist ? 'h-5 w-5 text-yellow-400' : 'h-5 w-5 text-gray-700'
+              isInWishlist ? 'h-5 w-5 text-primary' : 'h-5 w-5 text-dark'
             }
             fill={isInWishlist ? 'currentColor' : 'none'}
           />
