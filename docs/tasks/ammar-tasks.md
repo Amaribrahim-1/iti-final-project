@@ -56,8 +56,8 @@ _Tasks 1–3 are a tightly related setup cluster — commit after each one indiv
 
 ### Task 5 — Data hooks: details
 
-- [ ] Build `useMovieDetails(id)` in `/hooks/useMovieDetails.js` — returns a single movie object with full details (`title`, `release_date`, `runtime`, etc.), same `{ data, isLoading, isError, error }` shape.
-- [ ] Build `useTVShowDetails(id)` in `/hooks/useTVShowDetails.js` — returns a single TV show object, but with the TV field names (`name`, `first_air_date`, `number_of_seasons`, `number_of_episodes`) instead of the movie ones. These are deliberately two separate hooks, not one generic "details" hook — keeps each consumer simple.
+- [x] Build `useMovieDetails(id)` in `/hooks/useMovieDetails.js` — returns a single movie object with full details (`title`, `release_date`, `runtime`, etc.), same `{ data, isLoading, isError, error }` shape.
+- [x] Build `useTVShowDetails(id)` in `/hooks/useTVShowDetails.js` — returns a single TV show object, but with the TV field names (`name`, `first_air_date`, `number_of_seasons`, `number_of_episodes`) instead of the movie ones. These are deliberately two separate hooks, not one generic "details" hook — keeps each consumer simple.
 
 **Acceptance criteria:** passing a real movie id / TV show id into each hook returns the correct full object with those exact fields.
 
