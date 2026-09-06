@@ -101,9 +101,9 @@ _Tasks 4–7 are the data-hooks cluster — commit after each, push once all fou
 
 ### Task 9 — Shared components: Loader and ErrorState
 
-- [ ] Build `<Loader />` in `/components/Loader.jsx` — a simple, reusable loading indicator.
-- [ ] Build `<ErrorState message />` in `/components/ErrorState.jsx` — a simple, reusable error message display, taking a `message` prop (prop = a piece of data passed into a component).
-- [ ] These must be used everywhere a query is loading or has failed — no one-off spinners anywhere in the app.
+- [x] Build `<Loader />` in `/components/Loader.jsx` — a simple, reusable loading indicator.
+- [x] Build `<ErrorState message />` in `/components/ErrorState.jsx` — a simple, reusable error message display, taking a `message` prop (prop = a piece of data passed into a component).
+- [x] These must be used everywhere a query is loading or has failed — no one-off spinners anywhere in the app.
 
 **Acceptance criteria:** dropping `<Loader />` and `<ErrorState message="test" />` into a temporary page renders correctly and looks intentional, not placeholder-y.
 
