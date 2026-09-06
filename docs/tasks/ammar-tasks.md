@@ -111,8 +111,8 @@ _Tasks 4–7 are the data-hooks cluster — commit after each, push once all fou
 
 ### Task 10 — Shared component: MovieCard
 
-- [ ] Build `<MovieCard item={movieOrTvObject} mediaType="movie" | "tv" />` in `/components/MovieCard.jsx` — shows poster, title, and rating, plus a heart icon wired to `toggleWishlist` / `isInWishlist` from `useWishlistStore()`. The heart fills with the site's primary color when the item is already in the wishlist.
-- [ ] This one component gets reused everywhere: Home page, Search Results, recommendations, Wishlist page, Trending page — so keep its props exactly as specified above, don't add required props that would break a future consumer.
+- [x] Build `<MovieCard item={movieOrTvObject} mediaType="movie" | "tv" />` in `/components/MovieCard.jsx` — shows poster, title, and rating, plus a heart icon wired to `toggleWishlist` / `isInWishlist` from `useWishlistStore()`. The heart fills with the site's primary color when the item is already in the wishlist.
+- [x] This one component gets reused everywhere: Home page, Search Results, recommendations, Wishlist page, Trending page — so keep its props exactly as specified above, don't add required props that would break a future consumer.
 
 **Acceptance criteria:** rendering `<MovieCard />` with a real movie object shows poster/title/rating correctly; clicking the heart toggles it filled/unfilled and actually updates the wishlist store.
 
