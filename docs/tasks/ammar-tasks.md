@@ -89,7 +89,7 @@ _Tasks 4–7 are the data-hooks cluster — commit after each, push once all fou
 
 ### Task 8 — Wishlist store (Zustand)
 
-- [ ] Build the Zustand store behind `useWishlistStore()` in `/store/useWishlistStore.js`, exposing:
+- [x] Build the Zustand store behind `useWishlistStore()` in `/store/useWishlistStore.js`, exposing:
   - `wishlist` — array of `{ ...item, media_type: 'movie' | 'tv' }`, selected like `useWishlistStore((state) => state.wishlist)`.
   - `toggleWishlist` — `(item, mediaType) => void`, adds the item if it's absent, removes it if it's already there.
   - `isInWishlist` — `(id, mediaType) => boolean`.
