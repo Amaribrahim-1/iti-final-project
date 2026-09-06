@@ -65,11 +65,11 @@ _Tasks 1–3 are a tightly related setup cluster — commit after each one indiv
 
 ### Task 6 — Data hooks: recommendations, reviews, search
 
-- [ ] Build `useMovieRecommendations(movieId)` in `/hooks/useMovieRecommendations.js` — `data.results` is an array of recommended movies for that movie id.
-- [ ] Build `useMovieReviews(movieId)` in `/hooks/useMovieReviews.js` — `data.results` is an array of review objects for that movie id.
-- [ ] Build `useTVShowRecommendations(tvId)` in `/hooks/useTVShowRecommendations.js` — calls TMDB's `/tv/{id}/recommendations` endpoint, same shape as `useMovieRecommendations` but `data.results` is an array of recommended TV shows. Shahd's TV Show Details page (Package C) needs this for its recommendations row, mirroring the movie one.
-- [ ] Build `useTVShowReviews(tvId)` in `/hooks/useTVShowReviews.js` — calls TMDB's `/tv/{id}/reviews` endpoint, same shape as `useMovieReviews` but `data.results` is an array of review objects for that TV show. Shahd's TV Show Details page needs this for its reviews list.
-- [ ] Build `useSearchMovies(query, page)` in `/hooks/useSearchMovies.js` — `data.results` is an array of movie search results, paginated.
+- [x] Build `useMovieRecommendations(movieId)` in `/hooks/useMovieRecommendations.js` — `data.results` is an array of recommended movies for that movie id.
+- [x] Build `useMovieReviews(movieId)` in `/hooks/useMovieReviews.js` — `data.results` is an array of review objects for that movie id.
+- [x] Build `useTVShowRecommendations(tvId)` in `/hooks/useTVShowRecommendations.js` — calls TMDB's `/tv/{id}/recommendations` endpoint, same shape as `useMovieRecommendations` but `data.results` is an array of recommended TV shows. Shahd's TV Show Details page (Package C) needs this for its recommendations row, mirroring the movie one.
+- [x] Build `useTVShowReviews(tvId)` in `/hooks/useTVShowReviews.js` — calls TMDB's `/tv/{id}/reviews` endpoint, same shape as `useMovieReviews` but `data.results` is an array of review objects for that TV show. Shahd's TV Show Details page needs this for its reviews list.
+- [x] Build `useSearchMovies(query, page)` in `/hooks/useSearchMovies.js` — `data.results` is an array of movie search results, paginated.
 
 **Acceptance criteria:** each hook returns real, correct data for a known movie id / TV show id / search query when tested manually.
 
