@@ -77,8 +77,7 @@ _Tasks 1–3 are a tightly related setup cluster — commit after each one indiv
 
 ### Task 7 — Data hook: `useTrending()` (bonus, unblocks Mariam)
 
-- [ ] Build `useTrending()` in `/hooks/useTrending.js` — calls TMDB's `/trending/all/day` endpoint. `data.results` is a **mixed** array of movies and TV shows; each item already has a `media_type` field from TMDB itself (`"movie"` or `"tv"`) — don't add your own, just pass it through.
-- [ ] This one is required now, unlike the AI chatbot below — Mariam's whole Package D depends on it.
+- [x] Build `useTrending()` in `/hooks/useTrending.js` — calls TMDB's `/trending/all/day` endpoint. `data.results` is a **mixed** array of movies and TV shows; each item already has a `media_type` field from TMDB itself (`"movie"` or `"tv"`) — don't add your own, just pass it through.
 
 **Acceptance criteria:** `data.results` contains a mix of items where some have `media_type: "movie"` and some `media_type: "tv"`.
 
