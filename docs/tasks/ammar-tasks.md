@@ -10,13 +10,13 @@ There are three parts in this file: the **core foundation** (blocks the team, do
 
 ### Task 1 — Project scaffolding
 
-- [ ] Pull the latest `main` branch (habit to start now, even if the repo is basically empty). Then create your branch: `feature/foundation-setup`.
-- [ ] Scaffold the app with Vite + React (JavaScript, no TypeScript).
-- [ ] Install and configure Tailwind CSS.
-- [ ] Set up the feature-based folder structure: `/pages`, `/components` (shared only), `/hooks`, `/store`, `/api`, `/utils`.
-- [ ] Add an ESLint + Prettier baseline config.
-- [ ] Create `.env.example` with `VITE_TMDB_API_KEY=` and `VITE_GEMINI_API_KEY=` (empty placeholders, no real keys).
-- [ ] Make sure `.env` itself is in `.gitignore` — never commit real keys.
+- [x] Pull the latest `main` branch (habit to start now, even if the repo is basically empty). Then create your branch: `feature/foundation-setup`.
+- [x] Scaffold the app with Vite + React (JavaScript, no TypeScript).
+- [x] Install and configure Tailwind CSS.
+- [x] Set up the feature-based folder structure: `/pages`, `/components` (shared only), `/hooks`, `/store`, `/api`, `/utils`.
+- [x] Add an ESLint + Prettier baseline config.
+- [x] Create `.env.example` with `VITE_TMDB_API_KEY=` and `VITE_GEMINI_API_KEY=` (empty placeholders, no real keys).
+- [x] Make sure `.env` itself is in `.gitignore` — never commit real keys.
 
 **Acceptance criteria:** `npm run dev` runs a blank Vite+React page with no errors; all the empty folders exist; `.env` is gitignored; `.env.example` has both placeholder keys.
 
