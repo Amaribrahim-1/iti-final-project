@@ -47,8 +47,8 @@ _Tasks 1–3 are a tightly related setup cluster — commit after each one indiv
 
 ### Task 4 — Data hooks: lists
 
-- [ ] Build `useMovies(page)` in `/hooks/useMovies.js` — TanStack Query hook, calls the now-playing/popular movies TMDB endpoint, returns the standard shape `{ data, isLoading, isError, error }` where `data.results` is an array of movie objects. Supports pagination via the `page` argument.
-- [ ] Build `useTVShows(page)` in `/hooks/useTVShows.js` — same shape, but for the popular TV shows endpoint.
+- [x] Build `useMovies(page)` in `/hooks/useMovies.js` — TanStack Query hook, calls the now-playing/popular movies TMDB endpoint, returns the standard shape `{ data, isLoading, isError, error }` where `data.results` is an array of movie objects. Supports pagination via the `page` argument.
+- [x] Build `useTVShows(page)` in `/hooks/useTVShows.js` — same shape, but for the popular TV shows endpoint.
 
 **Acceptance criteria:** calling either hook from a temporary test component and logging `data` shows a real array of movies/TV shows for page 1, and a _different_ array when you pass page 2.
 
