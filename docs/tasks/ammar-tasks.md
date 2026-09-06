@@ -34,8 +34,8 @@ There are three parts in this file: the **core foundation** (blocks the team, do
 
 ### Task 3 — API layer
 
-- [ ] Create a single Axios instance configured with the TMDB base URL and API key (read from `import.meta.env.VITE_TMDB_API_KEY`).
-- [ ] Create the shared image-URL helper in `/utils` (e.g. `/utils/buildImageUrl.js`) that returns `https://image.tmdb.org/t/p/w500/${poster_path}` — this is the ONLY place that base URL should ever be written; no component should hardcode it.
+- [x] Create a single Axios instance configured with the TMDB base URL and API key (read from `import.meta.env.VITE_TMDB_API_KEY`).
+- [x] Create the shared image-URL helper in `/utils` (e.g. `/utils/buildImageUrl.js`) that returns `https://image.tmdb.org/t/p/w500/${poster_path}` — this is the ONLY place that base URL should ever be written; no component should hardcode it.
 
 **Acceptance criteria:** a quick manual test call (e.g. fetching popular movies in the browser console or a temp log) returns real TMDB data; the image helper returns a correct, working image URL when given a real `poster_path`.
 
