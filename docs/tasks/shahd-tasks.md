@@ -106,6 +106,18 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 
 **Commit now with message:** `feat: add tv show details reviews list`
 
+**Optional (not required — skip this if you want, no impact on your PR):** The two details pages must stay separate (do not merge them into one generic Details page — movie and TV use different field names like `title` vs `name`). If you'd like to practice reuse after Task 8, the reviews section is the safe piece to share: TMDB review objects look the same on both pages (`author` and `content`).
+
+How, in short:
+1. Create `src/components/ReviewsList.jsx` (it gets used by two pages, so it belongs in the shared `/components` folder, not inside one page).
+2. It takes a `reviews` prop (the `data.results` array). If the array is empty, show "No reviews yet". Otherwise render each review's author and content — same UI you already built in Task 3 and Task 8.
+3. In both `MovieDetailsPage.jsx` and `TVShowDetailsPage.jsx`, keep calling each page's own reviews hook (`useMovieReviews` / `useTVShowReviews`). Only the rendering moves into `<ReviewsList reviews={data.results} />`.
+4. Leave core info and recommendations on each page. Those still read different fields / different `mediaType`.
+
+If you skip this, copying the reviews markup into both pages is still correct.
+
+If you do it: make a **new commit** on this same `feature/tv-show-details-page` branch (do not fold it into the Task 8 commit) with message: `refactor: extract shared reviewslist for movie and tv details`. Do **not** open a separate Pull Request — this goes out with the same TV Show Details PR (updating `MovieDetailsPage.jsx` on this branch is fine because Movie Details is already merged into `main`). If that PR is already open, just push the extra commit and the PR updates automatically. Then continue with the push below / Task 9.
+
 _Tasks 6–8 build the whole TV Show Details page and are tightly related — commit after each one individually (as above), but only push to the remote once Task 8 is done._
 
 **Push now** (`git push -u origin feature/tv-show-details-page`) — this covers Tasks 6, 7, and 8.

@@ -72,7 +72,7 @@ This should live in one shared helper in `/utils` — never hardcoded per-compon
 - **Pull Requests:** open a PR to `main` once that one feature (not the whole package) is functionally complete and tested locally in the browser. PR description should briefly state what was built and include a screenshot if it's a UI task. Tag Ammar as reviewer. If your package has 2 features, that's 2 separate PRs, opened one after the other — not one PR at the very end covering both.
 - **Merging & conflicts:** only Ammar merges PRs into `main`. If your branch falls behind `main` (e.g. the foundation or a shared file changed), pull `main` into your branch and resolve conflicts locally before requesting review — Ammar will help if a conflict is confusing.
 - **After a PR is merged — clean up before starting the next feature:** delete the merged branch both locally (`git branch -d feature/<name>`) and on GitHub (`git push origin --delete feature/<name>`), then pull the fresh `main` and only then create the next feature branch. This is called out explicitly at the right point inside each task file — don't do it early, and don't skip it.
-- **Never commit `.env` or API keys.**
+- **Never commit** `.env` **or API keys.**
 
 ---
 
@@ -135,7 +135,7 @@ Must be finished and merged into `main` before the other 4 members start pulling
 1. **Project scaffolding**: Vite + React app, Tailwind configured, feature-based folder structure (see `stack-conventions.mdc` / `docs/team-guide.md` for the full convention), ESLint/Prettier baseline, `.env.example`.
 2. **Routing skeleton**: all routes registered in React Router with placeholder page components (`/`, `/movie/:id`, `/tv/:id`, `/search`, `/wishlist`, `/trending`, `/ai-assistant`), plus the app `Layout` (Navbar slot + page outlet).
 3. **API layer**: Axios instance with TMDB base URL + API key, plus the shared image-URL helper (Section 2).
-4. **Data hooks**: all TanStack Query hooks listed in Section 4.1, **including `useTrending()`** — this one is required before handoff since Mariam's package depends on it, unlike the chatbot below.
+4. **Data hooks**: all TanStack Query hooks listed in Section 4.1, **including** `useTrending()` — this one is required before handoff since Mariam's package depends on it, unlike the chatbot below.
 5. **Wishlist Store**: Zustand implementation behind `useWishlistStore()` as specified in Section 4.2.
 6. **Shared components**: `MovieCard`, `Loader`, `ErrorState` as specified in Section 4.3.
 7. **Design tokens**: fetch the Figma file directly (link in Section 1) and extract the actual design system — primary color, background, text colors, any accent/rating/error colors, and typography — then wire them into the Tailwind config so the rest of the team is styling against real values, not placeholders.
@@ -181,8 +181,8 @@ Each package is self-contained: it only depends on the foundation (Section 4/5),
 **Acceptance criteria:** submitting a search navigates to `/search?q=...` and shows matching results as `<MovieCard />`s; wishlist counter in the Navbar updates immediately when any card's heart is toggled anywhere in the app; empty/no-results state is handled on Search.
 **Git checkpoints (two separate branches/PRs — Navbar and Search Results are two distinct components, not one):**
 
-- **Branch 1: `feature/navbar`** — static Navbar layout, search input wired to navigate, live wishlist counter, styling pass, Dark Mode toggle button (small follow-up commit once Ammar's theme store is merged, even if that's after opening this PR). Open PR once the Navbar works end-to-end. Once merged: delete `feature/navbar` (local + remote), pull fresh `main`, then start Branch 2.
-- **Branch 2: `feature/search-results`** — Search Results page rendering, empty/no-results state, styling pass. Open PR once Search works end-to-end.
+- **Branch 1:** `feature/navbar` — static Navbar layout, search input wired to navigate, live wishlist counter, styling pass, Dark Mode toggle button (small follow-up commit once Ammar's theme store is merged, even if that's after opening this PR). Open PR once the Navbar works end-to-end. Once merged: delete `feature/navbar` (local + remote), pull fresh `main`, then start Branch 2.
+- **Branch 2:** `feature/search-results` — Search Results page rendering, empty/no-results state, styling pass. Open PR once Search works end-to-end.
 
 ### Package C — Movie Details Page + TV Show Details Page — Shahd
 
@@ -192,9 +192,9 @@ Each package is self-contained: it only depends on the foundation (Section 4/5),
 - **TV Show Details**: same overall approach and same three sections as Movie Details — poster + core info, a recommendations row, and a reviews list — using `useTVShowDetails(id)`, `useTVShowRecommendations(id)`, and `useTVShowReviews(id)`. Built as its own separate component reading the real TV fields directly (`name`, `first_air_date`, `number_of_seasons`, `number_of_episodes` — not the movie field names), and the recommendations row reuses `<MovieCard />` with `mediaType="tv"`. There is no Figma screen for this page — follow the Movie Details layout as the visual reference, adapted to these fields.
   **Acceptance criteria:** both pages render with real data; loading/error states are handled per section using `<Loader />` / `<ErrorState />`; the heart icon (via `<MovieCard />` in both the movie and TV recommendations rows) works correctly; the two pages are visually consistent with each other even though they're separate components.
   **Git checkpoints (two separate branches/PRs — Movie Details and TV Show Details are two separate pages/components, not one):**
-- **Branch 1: `feature/movie-details-page`** — core info → recommendations → reviews → styling pass against Figma. Open PR once the Movie Details page looks right with real data. Once merged: delete `feature/movie-details-page` (local + remote), pull fresh `main`, then start Branch 2.
-- **Branch 2: `feature/tv-show-details-page`** — core info → recommendations → reviews → styling pass, using the now-merged, now-styled Movie Details page as the visual reference (since there's no Figma screen for TV). Open PR once the TV Show Details page looks right and is visually consistent with Movie Details.
-- If anything about the hooks or data shape is unclear, ask Ammar in the group before guessing.
+- **Branch 1:** `feature/movie-details-page` — core info → recommendations → reviews → styling pass against Figma. Open PR once the Movie Details page looks right with real data. Once merged: delete `feature/movie-details-page` (local + remote), pull fresh `main`, then start Branch 2.
+- **Branch 2:** `feature/tv-show-details-page` — core info → recommendations → reviews → styling pass, using the now-merged, now-styled Movie Details page as the visual reference (since there's no Figma screen for TV). Open PR once the TV Show Details page looks right and is visually consistent with Movie Details.
+- If anything about the hooks or data shape is unclear, ask in the group before guessing.
 
 ### Package D — Wishlist Page + Trending Page (bonus feature) — Mariam
 
@@ -204,9 +204,9 @@ Each package is self-contained: it only depends on the foundation (Section 4/5),
 - **Trending Page** (bonus, beyond the original requirements): a new page at `/trending` showing TMDB's daily trending movies and TV shows together, using the `useTrending()` hook (built by Ammar as part of the foundation — see Section 4.1). Render the results as a grid of `<MovieCard />`, using each item's own `media_type` (already provided by the API response) to pass the right `mediaType` prop. A good opportunity to get comfortable with a hook someone else built, without any deadline pressure since nothing else in the team depends on this page.
   **Acceptance criteria:** Wishlist page correctly lists and removes both movies and TV shows without mixing up their identity, and shows the empty state correctly; Trending page renders trending movies and TV shows together in one grid, each card correctly links to `/movie/:id` or `/tv/:id` depending on its real type; both pages use `<Loader />` / `<ErrorState />` and have working heart icons.
   **Git checkpoints (two separate branches/PRs — Wishlist Page and Trending Page are two separate pages, not one):**
-- **Branch 1: `feature/wishlist-page`** — listing with movie/TV badges → remove action → empty state → styling pass. Open PR once the Wishlist page works end-to-end. Once merged: delete `feature/wishlist-page` (local + remote), pull fresh `main`, then start Branch 2.
-- **Branch 2: `feature/trending-page`** — grid rendering with `useTrending()` → correct movie/TV routing per card → styling pass. Open PR once the Trending page works end-to-end.
-- If anything about `useTrending()`'s data shape is unclear, ask Ammar in the group before guessing.
+- **Branch 1:** `feature/wishlist-page` — listing with movie/TV badges → remove action → empty state → styling pass. Open PR once the Wishlist page works end-to-end. Once merged: delete `feature/wishlist-page` (local + remote), pull fresh `main`, then start Branch 2.
+- **Branch 2:** `feature/trending-page` — grid rendering with `useTrending()` → correct movie/TV routing per card → styling pass. Open PR once the Trending page works end-to-end.
+- If anything about `useTrending()`'s data shape is unclear, ask in the group before guessing.
 
 ---
 

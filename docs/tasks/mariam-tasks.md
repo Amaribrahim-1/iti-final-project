@@ -76,6 +76,20 @@ This is the only Pull Request for the Wishlist Page branch — if Ammar asks for
 
 **Commit now with message:** `feat: build trending page grid using usetrending`
 
+**Optional (not required — skip this if you want, no impact on your PR):** If you'd like to practice pagination the same way Ibrahim does on the Home page, you can add Previous/Next buttons after the grid from Task 6 is working.
+
+How, in short:
+1. In `TrendingPage.jsx`, read the current page from the URL with `useSearchParams` from `react-router-dom` (e.g. `/trending?page=2`). You don't need a separate `useState` for the page number — the URL is the source of truth. Pass that number into `useTrending(page)`.
+2. Add "Previous" / "Next" buttons under the grid. Disable Previous on page 1. Next just increments. Clicking them should update the URL so a refresh and the browser back button keep the right page.
+3. `useTrending()` and `getTrending()` currently take no arguments and always fetch page 1. To support this, change them the same way `useMovies(page)` / `getMovies(page)` already work:
+   - In `src/api/getTrending.js`, make `getTrending(page)` call `/trending/all/day` with `params: { page }`.
+   - In `src/hooks/useTrending.js`, make `useTrending(page)` use `queryKey: ['trending', page]` and call `getTrending(page)`.
+   Message Ammar in the group before you edit those two files so he knows the hook contract is changing.
+
+If you skip this, calling `useTrending()` with no arguments is still correct — the page just shows page 1.
+
+If you do it: make a **new commit** on this same `feature/trending-page` branch (do not fold it into the Task 6 commit) with message: `feat: add trending page pagination`. Do **not** open a separate Pull Request — this goes out with the same Trending Page PR. If that PR is already open, just push the extra commit and the PR updates automatically. Then continue with Task 7.
+
 ### Task 7 — Correct movie/TV routing per card
 
 - [ ] `<MovieCard />` already links each card to the right detail page based on the `mediaType` prop you pass it — this task is to verify that actually works correctly for every card in your mixed grid, since it's easy to accidentally pass the wrong prop somewhere.
