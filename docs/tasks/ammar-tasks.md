@@ -24,9 +24,9 @@ There are three parts in this file: the **core foundation** (blocks the team, do
 
 ### Task 2 — Routing skeleton
 
-- [ ] Install `react-router-dom` (latest version).
-- [ ] Register all routes with placeholder page components, using these exact file paths so the rest of the team knows exactly which file to open later: `pages/Home/HomePage.jsx` → `/`, `pages/MovieDetails/MovieDetailsPage.jsx` → `/movie/:id`, `pages/TVShowDetails/TVShowDetailsPage.jsx` → `/tv/:id`, `pages/SearchResults/SearchResultsPage.jsx` → `/search`, `pages/Wishlist/WishlistPage.jsx` → `/wishlist`, `pages/Trending/TrendingPage.jsx` → `/trending`, `pages/AIAssistant/AIAssistantPage.jsx` → `/ai-assistant`.
-- [ ] Build a `Layout` component with a Navbar slot (empty for now, Sahar fills it in later) and a page outlet (`<Outlet />`) for the routed page content.
+- [x] Install `react-router-dom` (latest version).
+- [x] Register all routes with placeholder page components, using these exact file paths so the rest of the team knows exactly which file to open later: `pages/Home/HomePage.jsx` → `/`, `pages/MovieDetails/MovieDetailsPage.jsx` → `/movie/:id`, `pages/TVShowDetails/TVShowDetailsPage.jsx` → `/tv/:id`, `pages/SearchResults/SearchResultsPage.jsx` → `/search`, `pages/Wishlist/WishlistPage.jsx` → `/wishlist`, `pages/Trending/TrendingPage.jsx` → `/trending`, `pages/AIAssistant/AIAssistantPage.jsx` → `/ai-assistant`.
+- [x] Build a `Layout` component with a Navbar slot (empty for now, Sahar fills it in later) and a page outlet (`<Outlet />`) for the routed page content.
 
 **Acceptance criteria:** typing each route's URL directly in the browser renders that page's placeholder text (e.g. "Home Page") with no crash, and the Layout wraps every page.
 
