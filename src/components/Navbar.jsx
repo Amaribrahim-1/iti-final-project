@@ -1,7 +1,16 @@
-import { Link } from 'react-router'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router'
 import { Heart, Search } from 'lucide-react'
 
 function Navbar() {
+  const [query, setQuery] = useState('')
+  const navigate = useNavigate()
+
+  function handleSearchSubmit(event) {
+    event.preventDefault()
+    navigate(`/search?query=${encodeURIComponent(query)}`)
+  }
+
   return (
     <div className="flex items-center justify-between gap-4 bg-primary px-6 py-4">
       <Link to="/" className="text-xl font-bold text-dark">
@@ -23,9 +32,11 @@ function Navbar() {
         </Link>
       </div>
 
-      <form className="flex items-center">
+      <form onSubmit={handleSearchSubmit} className="flex items-center">
         <input
           type="text"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
           placeholder="Search and explore...."
           className="rounded-l bg-background px-3 py-2 text-dark focus:outline-none"
         />
