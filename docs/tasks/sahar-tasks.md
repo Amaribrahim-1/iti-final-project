@@ -85,7 +85,7 @@ This is the only Pull Request for the Navbar branch — if Ammar asks for change
 - [ ] Open `pages/SearchResults/SearchResultsPage.jsx` (Ammar already created this empty file and linked it to `/search`). Read the `query` param from the URL using `useSearchParams` from `react-router`.
 - [ ] Call `useSearchMovies(query, page)` from `/hooks/useSearchMovies.js` (import it exactly from that path) — it returns the standard shape `{ data, isPending, isError, error }`, with the array of results in `data.results`. Hardcode `page = 1` for now.
 - [ ] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render `data.results` as a grid of `<MovieCard item={item} mediaType="movie" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, rating, and wishlist heart icon internally.
+- [ ] Render `data.results` as a grid of `<MovieCard item={item} mediaType="movie" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/movie/:id` via its own inner `Link` — don't wrap it in another `Link` yourself.
 
 **Acceptance criteria:** navigating to `/search?query=batman` shows a grid of matching movie cards with posters, titles, and ratings.
 

@@ -11,18 +11,17 @@ not this doc.
 ## 1. Getting started
 
 ```bash
-git clone <repo-url>
-cd <the-folder-that-was-just-created>
+git clone https://github.com/Amaribrahim-1/iti-final-project.git
+cd iti-final-project
 npm install
 ```
 
-Run these two commands inside a terminal (any terminal works — the one built
+Run these commands inside a terminal (any terminal works — the one built
 into VS Code, PowerShell, cmd, or Git Bash). `git clone` downloads the repo
-into a new folder on your machine, named automatically after the repo's name
-on GitHub (whatever the last part of the repo URL is — not necessarily
-`iti-final-project` from `package.json`, that's a separate, unrelated name).
-`cd <folder>` means "move into that folder" — you have to be inside it
-before running `npm install`, otherwise it won't find `package.json`.
+into a new folder named `iti-final-project` (the last part of the GitHub
+URL). `cd iti-final-project` means "move into that folder" — you have to
+be inside it before running `npm install`, otherwise it won't find
+`package.json`.
 
 Create your own `.env` file in the project root (copy `.env.example`) and
 fill in your real keys — never commit this file, it's already gitignored:

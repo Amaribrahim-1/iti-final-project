@@ -154,12 +154,12 @@ _Tasks 8–10 are the state + shared-components cluster — commit after each, p
 
 ### Task 14 — Repo setup and handoff (final task of Part 1)
 
-- [ ] Make sure you've tested everything above yourself in the browser — every hook returns real data, the wishlist store works, `<MovieCard />` toggles correctly, and all placeholder routes render.
-- [ ] Push the branch (`git push -u origin feature/foundation-setup`) if you haven't already.
-- [ ] Open a Pull Request (PR — a request to merge your branch's changes into `main`) from `feature/foundation-setup` into `main`, with a short description of everything built.
-- [ ] Since you're the Team Leader and there's no one else to review your own foundation PR, merge it into `main` yourself once you've re-checked it.
-- [ ] Only after merging: hand out the task packages to Ibrahim, Sahar, Shahd, and Mariam, and tell them to pull the new `main` before creating their branches.
-- [ ] Delete the `feature/foundation-setup` branch, both locally (`git branch -d feature/foundation-setup`) and on GitHub (`git push origin --delete feature/foundation-setup`) — keeps the branch list clean before you start Part 2.
+- [x] Make sure you've tested everything above yourself in the browser — every hook returns real data, the wishlist store works, `<MovieCard />` toggles correctly, and all placeholder routes render.
+- [x] Push the branch (`git push -u origin feature/foundation-setup`) if you haven't already.
+- [x] Open a Pull Request (PR — a request to merge your branch's changes into `main`) from `feature/foundation-setup` into `main`, with a short description of everything built.
+- [x] Since you're the Team Leader and there's no one else to review your own foundation PR, merge it into `main` yourself once you've re-checked it.
+- [x] Only after merging: hand out the task packages to Ibrahim, Sahar, Shahd, and Mariam, and tell them to pull the new `main` before creating their branches.
+- [x] Delete the `feature/foundation-setup` branch, both locally (`git branch -d feature/foundation-setup`) and on GitHub (`git push origin --delete feature/foundation-setup`) — keeps the branch list clean before you start Part 2.
 
 This is the only PR for the **core foundation** part of this file. The AI Assistant and Dark Mode parts below each get their own separate branch and PR later — same one-branch-per-feature rule you're asking the rest of the team to follow.
 

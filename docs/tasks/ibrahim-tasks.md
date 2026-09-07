@@ -36,7 +36,7 @@ _Tasks 1 and 2 are a tightly related setup cluster — commit after each one ind
 - [ ] For the Movies tab, use `useMovies(page)` from `/hooks/useMovies.js` (import it exactly from that path). It returns the standard shape `{ data, isPending, isError, error }`; the array of movies is in `data.results`.
 - [ ] For the TV Shows tab, use `useTVShows(page)` from `/hooks/useTVShows.js` the same way.
 - [ ] For now, hardcode `page = 1` (real pagination comes in Task 4). While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render `data.results` as a responsive grid of `<MovieCard item={item} mediaType="movie" />` (or `"tv"` for the TV tab) from `/components/MovieCard.jsx` — this shared component already handles the poster, title, rating, and wishlist heart icon internally, you just pass it the right item and `mediaType`.
+- [ ] Render `data.results` as a responsive grid of `<MovieCard item={item} mediaType="movie" />` (or `"tv"` for the TV tab) from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/movie/:id` or `/tv/:id` via its own inner `Link` — don't wrap it in another `Link` yourself. Pass `"movie"` or `"tv"` to match the active tab.
 
 **Acceptance criteria:** switching tabs shows a real grid of movie posters or TV show posters (whichever tab is active); a slow network (or DevTools throttling) briefly shows `<Loader />` first.
 

@@ -89,7 +89,7 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 
 - [ ] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the core info section, call `useTVShowRecommendations(id)` from `/hooks/useTVShowRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 6 — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the recommended TV shows are in `data.results`.
 - [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="tv" />` from `/components/MovieCard.jsx` — same shared component as the movie recommendations row (already navigates via its own inner `Link`, don't wrap it in another one), just with `mediaType="tv"` this time since these results are TV shows, not movies.
+- [ ] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="tv" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/tv/:id` via its own inner `Link` — don't wrap it in another `Link` yourself. Same component as the movie recommendations row, just with `mediaType="tv"` this time since these results are TV shows, not movies.
 
 **Acceptance criteria:** the recommendations row shows real recommended TV shows as cards; this section has its own loading/error UI; clicking a heart icon on a card correctly toggles it in the wishlist.
 
