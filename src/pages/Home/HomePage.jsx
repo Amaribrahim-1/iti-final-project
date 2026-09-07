@@ -69,7 +69,7 @@ function HomePage() {
     content = <ErrorState message={error.message} />
   } else {
     content = (
-      <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {data.results.map((item) => (
           <li key={item.id}>
             <MovieCard item={item} mediaType={mediaType} />
@@ -79,8 +79,11 @@ function HomePage() {
     )
   }
 
+  const sectionHeading = isTvTab ? 'Popular TV Shows' : 'Now Playing'
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-8">
+      {/* Tab bar */}
       <div className="mb-6 flex gap-2" role="tablist" aria-label="Media type">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id
@@ -92,10 +95,10 @@ function HomePage() {
               role="tab"
               aria-selected={isActive}
               onClick={() => handleTabClick(tab.id)}
-              className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
                 isActive
                   ? 'bg-primary text-dark'
-                  : 'bg-surface text-muted hover:text-dark'
+                  : 'bg-surface text-muted hover:bg-primary/30 hover:text-dark'
               }`}
             >
               {tab.label}
@@ -104,28 +107,36 @@ function HomePage() {
         })}
       </div>
 
+      {/* Section heading */}
+      <h2 className="mb-6 text-2xl font-bold text-dark">{sectionHeading}</h2>
+
+      {/* Grid */}
       <div role="tabpanel">{content}</div>
 
-      <div className="mt-10 flex items-center justify-center gap-4">
+      {/* Pagination */}
+      <div className="mt-12 flex items-center justify-center gap-3 border-t border-surface pt-8">
         <button
           type="button"
           id="pagination-prev"
           onClick={() => handlePageChange(-1)}
           disabled={page <= 1}
-          className="rounded-md bg-surface px-5 py-2 text-sm font-medium text-dark transition-colors hover:bg-primary disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex items-center gap-1 rounded-full bg-surface px-5 py-2 text-sm font-semibold text-dark transition-colors hover:bg-primary disabled:cursor-not-allowed disabled:opacity-40"
         >
           ← Previous
         </button>
 
-        <span className="text-sm text-muted" aria-live="polite">
-          Page {page}
+        <span
+          className="min-w-[2.5rem] rounded-full bg-primary px-3 py-2 text-center text-sm font-bold text-dark"
+          aria-live="polite"
+        >
+          {page}
         </span>
 
         <button
           type="button"
           id="pagination-next"
           onClick={() => handlePageChange(1)}
-          className="rounded-md bg-surface px-5 py-2 text-sm font-medium text-dark transition-colors hover:bg-primary"
+          className="flex items-center gap-1 rounded-full bg-surface px-5 py-2 text-sm font-semibold text-dark transition-colors hover:bg-primary"
         >
           Next →
         </button>
