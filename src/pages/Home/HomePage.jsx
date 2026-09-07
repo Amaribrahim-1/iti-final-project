@@ -11,23 +11,27 @@ const TABS = [
   { id: 'tv', label: 'TV Shows' },
 ]
 
-const PAGE = 1
-
 function parseTab(value) {
   return value === 'tv' ? 'tv' : 'movies'
+}
+
+function parsePage(value) {
+  const n = parseInt(value, 10)
+  return Number.isFinite(n) && n > 0 ? n : 1
 }
 
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const tabFromUrl = parseTab(searchParams.get('tab'))
+  const page = parsePage(searchParams.get('page'))
   const [activeTab, setActiveTab] = useState(tabFromUrl)
 
   if (activeTab !== tabFromUrl) {
     setActiveTab(tabFromUrl)
   }
 
-  const moviesQuery = useMovies(PAGE)
-  const tvShowsQuery = useTVShows(PAGE)
+  const moviesQuery = useMovies(page)
+  const tvShowsQuery = useTVShows(page)
   const isTvTab = activeTab === 'tv'
   const { data, isPending, isError, error } = isTvTab
     ? tvShowsQuery
@@ -39,6 +43,20 @@ function HomePage() {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev)
       next.set('tab', tabId)
+      next.delete('page') // reset to page 1 on tab switch
+      return next
+    })
+  }
+
+  function handlePageChange(delta) {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      const newPage = parsePage(prev.get('page')) + delta
+      if (newPage <= 1) {
+        next.delete('page')
+      } else {
+        next.set('page', String(newPage))
+      }
       return next
     })
   }
@@ -87,6 +105,31 @@ function HomePage() {
       </div>
 
       <div role="tabpanel">{content}</div>
+
+      <div className="mt-10 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          id="pagination-prev"
+          onClick={() => handlePageChange(-1)}
+          disabled={page <= 1}
+          className="rounded-md bg-surface px-5 py-2 text-sm font-medium text-dark transition-colors hover:bg-primary disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          ← Previous
+        </button>
+
+        <span className="text-sm text-muted" aria-live="polite">
+          Page {page}
+        </span>
+
+        <button
+          type="button"
+          id="pagination-next"
+          onClick={() => handlePageChange(1)}
+          className="rounded-md bg-surface px-5 py-2 text-sm font-medium text-dark transition-colors hover:bg-primary"
+        >
+          Next →
+        </button>
+      </div>
     </section>
   )
 }
