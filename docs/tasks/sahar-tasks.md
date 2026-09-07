@@ -20,9 +20,9 @@ If anything about the hooks or data shapes below is unclear, ask Ammar in the gr
 
 ### Task 2 — Wire the search input
 
-- [ ] On submitting the search input (e.g. pressing Enter or clicking a search button), navigate to `/search?q=<the typed query>` using `useNavigate` from `react-router`.
+- [ ] On submitting the search input (e.g. pressing Enter or clicking a search button), navigate to `/search?query=<the typed query>` using `useNavigate` from `react-router`.
 
-**Acceptance criteria:** typing "batman" into the search box and submitting navigates the browser to `/search?q=batman`.
+**Acceptance criteria:** typing "batman" into the search box and submitting navigates the browser to `/search?query=batman`.
 
 **Commit now with message:** `feat: wire search input to navigate to search results with query`
 
@@ -82,12 +82,12 @@ This is the only Pull Request for the Navbar branch — if Ammar asks for change
 
 - [ ] Pull the latest `main` branch (it now includes your merged Navbar work).
 - [ ] Create your second feature branch with the exact name: `feature/search-results`.
-- [ ] Open `pages/SearchResults/SearchResultsPage.jsx` (Ammar already created this empty file and linked it to `/search`). Read the `q` query param from the URL using `useSearchParams` from `react-router`.
+- [ ] Open `pages/SearchResults/SearchResultsPage.jsx` (Ammar already created this empty file and linked it to `/search`). Read the `query` param from the URL using `useSearchParams` from `react-router`.
 - [ ] Call `useSearchMovies(query, page)` from `/hooks/useSearchMovies.js` (import it exactly from that path) — it returns the standard shape `{ data, isPending, isError, error }`, with the array of results in `data.results`. Hardcode `page = 1` for now.
 - [ ] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
 - [ ] Render `data.results` as a grid of `<MovieCard item={item} mediaType="movie" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, rating, and wishlist heart icon internally.
 
-**Acceptance criteria:** navigating to `/search?q=batman` shows a grid of matching movie cards with posters, titles, and ratings.
+**Acceptance criteria:** navigating to `/search?query=batman` shows a grid of matching movie cards with posters, titles, and ratings.
 
 **Commit now with message:** `feat: build search results page with usesearchmovies`
 

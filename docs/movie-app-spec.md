@@ -179,7 +179,7 @@ Each package is self-contained: it only depends on the foundation (Section 4/5),
 ### Package B — Navbar + Search Results — Sahar
 
 **Build:** the app's Navbar (logo, Movies/TV nav links, search input, wishlist icon + live counter from `useWishlistStore()`, AI Movie Assistant link, Trending link, and the Dark/Light mode toggle control once Ammar's theme store is ready) and the Search Results page (reads the query from the URL and calls `useSearchMovies(query, page)`).
-**Acceptance criteria:** submitting a search navigates to `/search?q=...` and shows matching results as `<MovieCard />`s; wishlist counter in the Navbar updates immediately when any card's heart is toggled anywhere in the app; empty/no-results state is handled on Search.
+**Acceptance criteria:** submitting a search navigates to `/search?query=...` and shows matching results as `<MovieCard />`s; wishlist counter in the Navbar updates immediately when any card's heart is toggled anywhere in the app; empty/no-results state is handled on Search.
 **Git checkpoints (two separate branches/PRs — Navbar and Search Results are two distinct components, not one):**
 
 - **Branch 1:** `feature/navbar` — static Navbar layout, search input wired to navigate, live wishlist counter, styling pass, Dark Mode toggle button (small follow-up commit once Ammar's theme store is merged, even if that's after opening this PR). Open PR once the Navbar works end-to-end. Once merged: delete `feature/navbar` (local + remote), pull fresh `main`, then start Branch 2.
