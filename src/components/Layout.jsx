@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router'
+import Navbar from './Navbar'
 
 function Layout() {
   return (
     <div className="min-h-screen bg-background text-dark">
       <header>
-        <nav>{/* Navbar slot — Sahar fills this in later */}</nav>
+        <nav>
+          <Navbar />
+        </nav>
       </header>
       <main>
         <Outlet />
