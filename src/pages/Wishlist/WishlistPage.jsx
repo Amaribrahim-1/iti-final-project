@@ -1,5 +1,29 @@
+import MovieCard from '../../components/MovieCard'
+import useWishlistStore from '../../store/useWishlistStore'
+
 function WishlistPage() {
-  return <h1>Wishlist Page</h1>
+  const wishlist = useWishlistStore((state) => state.wishlist)
+
+  return (
+    <main>
+      <h1>Watch List</h1>
+
+      <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        {wishlist.map((item) => (
+          <li key={`${item.media_type}-${item.id}`}>
+            <MovieCard
+              item={item}
+              mediaType={item.media_type}
+            />
+
+            <span>
+              {item.media_type === 'movie' ? 'Movie' : 'TV Show'}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </main>
+  )
 }
 
 export default WishlistPage
