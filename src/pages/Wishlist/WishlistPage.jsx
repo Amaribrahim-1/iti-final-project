@@ -1,6 +1,6 @@
+import { Link } from 'react-router'
 import MovieCard from '../../components/MovieCard'
 import useWishlistStore from '../../store/useWishlistStore'
-import { useNavigate } from 'react-router'
 
 function WishlistPage() {
   const wishlist = useWishlistStore((state) => state.wishlist)
@@ -9,10 +9,8 @@ function WishlistPage() {
     (state) => state.removeFromWishlist,
   )
 
-  const navigate = useNavigate()
-
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="mb-8 text-2xl font-bold text-dark sm:text-3xl">
         Watch list
       </h1>
@@ -23,32 +21,26 @@ function WishlistPage() {
             <span className="text-4xl text-gray-400">♡</span>
           </div>
 
-          <p className="mb-6 text-lg text-muted">
-            No Movies in watch list
-          </p>
+          <p className="mb-6 text-lg text-muted">No Movies in watch list</p>
 
-          <button
-  type="button"
-  onClick={() => navigate('/')}
-  className="rounded-md bg-primary px-10 py-3 text-sm font-medium text-dark transition hover:opacity-80"
->
-  Back to home
-</button>
+          <Link
+            to="/"
+            className="rounded-md bg-primary px-10 py-3 text-sm font-medium text-dark transition hover:opacity-80"
+          >
+            Back to home
+          </Link>
         </div>
       ) : (
         <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {wishlist.map((item) => (
             <li
               key={`${item.media_type}-${item.id}`}
-              className="flex flex-col"
+              className="flex h-full flex-col"
             >
-              <MovieCard
-                item={item}
-                mediaType={item.media_type}
-              />
+              <MovieCard item={item} mediaType={item.media_type} />
 
-              <div className="mt-3 flex items-center justify-between gap-2">
-                <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-white">
+              <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+                <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-dark">
                   {item.media_type === 'movie' ? 'Movie' : 'TV Show'}
                 </span>
 
@@ -66,7 +58,7 @@ function WishlistPage() {
           ))}
         </ul>
       )}
-    </main>
+    </div>
   )
 }
 
