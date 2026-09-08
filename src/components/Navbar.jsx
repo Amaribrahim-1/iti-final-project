@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { Heart, Search } from 'lucide-react'
+import useWishlistStore from '../store/useWishlistStore'
 
 function Navbar() {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
+  const wishlist = useWishlistStore((state) => state.wishlist)
 
   function handleSearchSubmit(event) {
     event.preventDefault()
@@ -31,18 +33,20 @@ function Navbar() {
           AI Movie Assistant
         </Link>
       </div>
-
-      <form onSubmit={handleSearchSubmit} className="flex items-center">
+      <form
+        onSubmit={handleSearchSubmit}
+        className="flex items-stretch overflow-hidden rounded"
+      >
         <input
           type="text"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search and explore...."
-          className="rounded-l bg-background px-3 py-2 text-dark focus:outline-none"
+          className="bg-background px-3 py-2 text-dark focus:outline-none"
         />
         <button
           type="submit"
-          className="flex items-center rounded-r bg-dark px-3 py-2 text-background"
+          className="flex items-center justify-center bg-dark px-3 text-background"
         >
           <Search size={18} />
         </button>
@@ -50,7 +54,7 @@ function Navbar() {
 
       <Link to="/wishlist" className="flex items-center gap-2 text-dark">
         <Heart size={20} />
-        <span>0</span>
+        <span>{wishlist.length}</span>
       </Link>
     </div>
   )
