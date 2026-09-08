@@ -32,7 +32,7 @@ function getPageItems(currentPage, totalPages) {
   ]
 }
 
-function HomePagination({ currentPage, totalPages, onPageChange }) {
+function Pagination({ currentPage, totalPages, onPageChange }) {
   const pageItems = getPageItems(currentPage, totalPages)
 
   return (
@@ -85,4 +85,4 @@ function HomePagination({ currentPage, totalPages, onPageChange }) {
   )
 }
 
-export default HomePagination
+export default Pagination
