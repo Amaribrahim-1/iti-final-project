@@ -18,7 +18,11 @@ function Navbar() {
 
   function handleSearchSubmit(event) {
     event.preventDefault()
-    navigate(`/search?query=${encodeURIComponent(query)}`)
+    const trimmedQuery = query.trim()
+    if (!trimmedQuery) {
+      return
+    }
+    navigate(`/search?query=${encodeURIComponent(trimmedQuery)}`)
     setIsMenuOpen(false)
   }
 
