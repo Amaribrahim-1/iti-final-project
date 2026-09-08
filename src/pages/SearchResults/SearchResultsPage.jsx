@@ -27,7 +27,11 @@ function SearchResultsPage() {
 
       {query && isError && <ErrorState message={error.message} />}
 
-      {query && !isPending && !isError && (
+      {query && !isPending && !isError && data.results.length === 0 && (
+        <p className="text-muted">No results found for '{query}'</p>
+      )}
+
+      {query && !isPending && !isError && data.results.length > 0 && (
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {data.results.map((item) => (
             <MovieCard key={item.id} item={item} mediaType="movie" />
