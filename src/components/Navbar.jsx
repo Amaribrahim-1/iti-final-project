@@ -5,7 +5,7 @@ import useWishlistStore from '../store/useWishlistStore'
 
 const NAV_LINKS = [
   { label: 'Movies', to: '/' },
-  { label: 'TV Shows', to: '/' },
+  { label: 'TV Shows', to: '/?tab=tv' },
   { label: 'Trending', to: '/trending' },
   { label: 'AI Movie Assistant', to: '/ai-assistant' },
 ]

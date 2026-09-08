@@ -38,6 +38,7 @@ const useWishlistStore = create(
     }),
     {
       name: 'wishlist',
+      // cspell:ignore partialize
       partialize: (state) => ({ wishlist: state.wishlist }),
     },
   ),
