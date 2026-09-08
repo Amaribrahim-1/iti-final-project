@@ -1,5 +1,6 @@
 import MovieCard from '../../components/MovieCard'
 import useWishlistStore from '../../store/useWishlistStore'
+import { useNavigate } from 'react-router'
 
 function WishlistPage() {
   const wishlist = useWishlistStore((state) => state.wishlist)
@@ -7,6 +8,8 @@ function WishlistPage() {
   const removeFromWishlist = useWishlistStore(
     (state) => state.removeFromWishlist,
   )
+
+  const navigate = useNavigate()
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -25,11 +28,12 @@ function WishlistPage() {
           </p>
 
           <button
-            type="button"
-            className="rounded-md bg-primary px-10 py-3 text-sm font-medium text-white transition hover:opacity-90"
-          >
-            Back to home
-          </button>
+  type="button"
+  onClick={() => navigate('/')}
+  className="rounded-md bg-primary px-10 py-3 text-sm font-medium text-dark transition hover:opacity-80"
+>
+  Back to home
+</button>
         </div>
       ) : (
         <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
