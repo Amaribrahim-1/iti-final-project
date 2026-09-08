@@ -3,7 +3,7 @@ import useMovies from '../../hooks/useMovies'
 import useTVShows from '../../hooks/useTVShows'
 import Loader from '../../components/Loader'
 import ErrorState from '../../components/ErrorState'
-import HomePagination from './components/HomePagination'
+import Pagination from '../../components/Pagination'
 import HomeTabs from './components/HomeTabs'
 import ResultsGrid from './components/ResultsGrid'
 
@@ -73,7 +73,7 @@ function HomePage() {
       </div>
 
       {isSuccess && (
-        <HomePagination
+        <Pagination
           currentPage={page}
           totalPages={totalPages}
           onPageChange={handlePageChange}
