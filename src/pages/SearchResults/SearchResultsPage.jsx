@@ -11,7 +11,7 @@ function SearchResultsPage() {
   const { data, isPending, isError, error } = useSearchMovies(query, 1)
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8">
       {query && (
         <h1 className="mb-6 text-lg font-semibold text-dark sm:text-xl">
           Search Results for : {query}
