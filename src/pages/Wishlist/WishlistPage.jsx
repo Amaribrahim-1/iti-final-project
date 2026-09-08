@@ -3,6 +3,8 @@ import useWishlistStore from '../../store/useWishlistStore'
 
 function WishlistPage() {
   const wishlist = useWishlistStore((state) => state.wishlist)
+  const removeFromWishlist = useWishlistStore(
+  (state) => state.removeFromWishlist)
 
   return (
     <main>
@@ -19,6 +21,10 @@ function WishlistPage() {
             <span>
               {item.media_type === 'movie' ? 'Movie' : 'TV Show'}
             </span>
+
+            <button
+            type="button"  onClick={() => removeFromWishlist(item.id, item.media_type)}>
+              Remove </button>
           </li>
         ))}
       </ul>
