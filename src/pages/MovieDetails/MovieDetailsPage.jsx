@@ -1,6 +1,7 @@
 import { useParams } from 'react-router'
 import useMovieDetails from '../../hooks/useMovieDetails'
 import useMovieRecommendations from '../../hooks/useMovieRecommendations'
+import useMovieReviews from '../../hooks/useMovieReviews'
 import Loader from '../../components/Loader'
 import ErrorState from '../../components/ErrorState'
 import MovieCard from '../../components/MovieCard'
@@ -16,6 +17,12 @@ function MovieDetailsPage() {
     isError: isRecommendationsError,
     error: recommendationsError,
   } = useMovieRecommendations(id)
+  const {
+    data: reviews,
+    isPending: isReviewsPending,
+    isError: isReviewsError,
+    error: reviewsError,
+  } = useMovieReviews(id)
   const posterUrl = buildImageUrl(data?.poster_path)
 
   return (
@@ -88,6 +95,34 @@ function MovieDetailsPage() {
             {recommendations.results.map((item) => (
               <li key={item.id}>
                 <MovieCard item={item} mediaType="movie" />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="mt-12">
+        <h2 className="mb-6 text-2xl font-bold text-dark">Reviews</h2>
+        {isReviewsPending && <Loader />}
+        {isReviewsError && (
+          <ErrorState
+            message={reviewsError?.message || 'Failed to load movie reviews.'}
+          />
+        )}
+        {reviews?.results?.length === 0 && (
+          <p className="text-muted">No reviews yet</p>
+        )}
+        {reviews?.results?.length > 0 && (
+          <ul className="flex flex-col gap-6">
+            {reviews.results.map((review) => (
+              <li
+                key={review.id}
+                className="rounded-lg bg-surface px-4 py-4"
+              >
+                <h3 className="mb-2 font-semibold text-dark">{review.author}</h3>
+                <p className="line-clamp-6 leading-relaxed text-dark">
+                  {review.content}
+                </p>
               </li>
             ))}
           </ul>
