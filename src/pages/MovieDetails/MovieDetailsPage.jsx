@@ -1,13 +1,21 @@
 import { useParams } from 'react-router'
 import useMovieDetails from '../../hooks/useMovieDetails'
+import useMovieRecommendations from '../../hooks/useMovieRecommendations'
 import Loader from '../../components/Loader'
 import ErrorState from '../../components/ErrorState'
+import MovieCard from '../../components/MovieCard'
 import buildImageUrl from '../../utils/buildImageUrl'
 import formatDate from '../../utils/formatDate'
 
 function MovieDetailsPage() {
   const { id } = useParams()
   const { data, isPending, isError, error } = useMovieDetails(id)
+  const {
+    data: recommendations,
+    isPending: isRecommendationsPending,
+    isError: isRecommendationsError,
+    error: recommendationsError,
+  } = useMovieRecommendations(id)
   const posterUrl = buildImageUrl(data?.poster_path)
 
   return (
@@ -63,6 +71,28 @@ function MovieDetailsPage() {
           </div>
         </div>
       )}
+
+      <section className="mt-12">
+        <h2 className="mb-6 text-2xl font-bold text-dark">Recommendations</h2>
+        {isRecommendationsPending && <Loader />}
+        {isRecommendationsError && (
+          <ErrorState
+            message={
+              recommendationsError?.message ||
+              'Failed to load recommended movies.'
+            }
+          />
+        )}
+        {recommendations?.results && (
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+            {recommendations.results.map((item) => (
+              <li key={item.id}>
+                <MovieCard item={item} mediaType="movie" />
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </section>
   )
 }
