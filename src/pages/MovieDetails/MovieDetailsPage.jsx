@@ -2,8 +2,8 @@ import { useParams } from 'react-router'
 import useMovieDetails from '../../hooks/useMovieDetails'
 import useMovieRecommendations from '../../hooks/useMovieRecommendations'
 import useMovieReviews from '../../hooks/useMovieReviews'
+import ReviewsList from '../../components/ReviewsList'
 import MovieDetailsInfo from './components/MovieDetailsInfo'
-import MovieReviews from './components/MovieReviews'
 import MovieRecommendations from './components/MovieRecommendations'
 
 function MovieDetailsPage() {
@@ -31,9 +31,9 @@ function MovieDetailsPage() {
         isError={isError}
         error={error}
       />
-      <MovieReviews
+      <ReviewsList
         key={`reviews-${id}`}
-        data={reviews}
+        reviews={reviews?.results}
         isPending={isReviewsPending}
         isError={isReviewsError}
         error={reviewsError}
