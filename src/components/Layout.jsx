@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router'
+import { Outlet, ScrollRestoration } from 'react-router'
 import Navbar from './Navbar'
 
 function Layout() {
@@ -12,6 +12,7 @@ function Layout() {
       <main>
         <Outlet />
       </main>
+      <ScrollRestoration />
     </div>
   )
 }
