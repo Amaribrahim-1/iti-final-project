@@ -18,12 +18,16 @@ function TrendingPage() {
     )
   }
 
+  const results = data.results.filter(
+    (item) => item.media_type === 'movie' || item.media_type === 'tv',
+  )
+
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="mb-8 text-3xl font-bold text-dark">Trending</h1>
 
-      <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {data.results.map((item) => (
+      <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+        {results.map((item) => (
           <MovieCard
             key={`${item.media_type}-${item.id}`}
             item={item}
@@ -31,7 +35,7 @@ function TrendingPage() {
           />
         ))}
       </div>
-    </main>
+    </section>
   )
 }
 
