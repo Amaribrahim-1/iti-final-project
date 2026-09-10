@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import getTrending from '../api/getTrending'
 
-function useTrending() {
+function useTrending(page = 1) {
   return useQuery({
-    queryKey: ['trending'],
-    queryFn: () => getTrending(),
+    queryKey: ['trending', page],
+    queryFn: () => getTrending(page),
   })
 }
 
