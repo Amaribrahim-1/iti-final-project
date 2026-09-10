@@ -1,6 +1,7 @@
 import { useParams } from 'react-router'
 import useTVShowDetails from '../../hooks/useTVShowDetails'
 import useTVShowRecommendations from '../../hooks/useTVShowRecommendations'
+import useTVShowReviews from '../../hooks/useTVShowReviews'
 import MovieCard from '../../components/MovieCard'
 import Loader from '../../components/Loader'
 import ErrorState from '../../components/ErrorState'
@@ -16,6 +17,12 @@ function TVShowDetailsPage() {
     isError: isRecommendationsError,
     error: recommendationsError,
   } = useTVShowRecommendations(id)
+  const {
+    data: reviewsData,
+    isPending: isReviewsPending,
+    isError: isReviewsError,
+    error: reviewsError,
+  } = useTVShowReviews(id)
   const posterUrl = buildImageUrl(data?.poster_path)
 
   return (
@@ -103,6 +110,42 @@ function TVShowDetailsPage() {
           recommendationsData.results.length === 0 && (
             <p className="text-muted">No recommendations available.</p>
           )}
+      </section>
+
+      {/* Reviews Section */}
+      <section className="mt-12 border-t border-gray-200 pt-8">
+        <h2 className="mb-6 text-2xl font-bold text-dark">Reviews</h2>
+        {isReviewsPending && <Loader />}
+        {isReviewsError && (
+          <ErrorState
+            message={reviewsError?.message || 'Failed to load reviews.'}
+          />
+        )}
+        {reviewsData?.results && reviewsData.results.length > 0 && (
+          <ul className="space-y-6">
+            {reviewsData.results.map((review) => (
+              <li
+                key={review.id}
+                className="rounded-lg border border-gray-200 bg-white p-6 shadow-xs"
+              >
+                <div className="mb-3 flex items-center justify-between">
+                  <h3 className="font-semibold text-dark">{review.author}</h3>
+                  {review.created_at && (
+                    <span className="text-xs text-muted">
+                      {formatDate(review.created_at)}
+                    </span>
+                  )}
+                </div>
+                <p className="line-clamp-4 whitespace-pre-line text-sm leading-relaxed text-dark">
+                  {review.content}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+        {reviewsData?.results && reviewsData.results.length === 0 && (
+          <p className="text-muted">No reviews yet</p>
+        )}
       </section>
     </div>
   )
