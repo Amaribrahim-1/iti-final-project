@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import Loader from '../../../components/Loader'
-import ErrorState from '../../../components/ErrorState'
+import Loader from './Loader'
+import ErrorState from './ErrorState'
 
-function MovieReviews({ data, isPending, isError, error }) {
+function ReviewsList({ reviews, isPending, isError, error }) {
   const [showAllReviews, setShowAllReviews] = useState(false)
-  const allReviews = data?.results ?? []
+  const allReviews = reviews ?? []
   const visibleReviews = showAllReviews ? allReviews : allReviews.slice(0, 3)
 
   return (
@@ -12,11 +12,9 @@ function MovieReviews({ data, isPending, isError, error }) {
       <h2 className="mb-6 text-2xl font-bold text-dark">Reviews</h2>
       {isPending && <Loader />}
       {isError && (
-        <ErrorState
-          message={error?.message || 'Failed to load movie reviews.'}
-        />
+        <ErrorState message={error?.message || 'Failed to load reviews.'} />
       )}
-      {allReviews.length === 0 && data && (
+      {allReviews.length === 0 && reviews && (
         <p className="text-muted">No reviews yet</p>
       )}
       {visibleReviews.length > 0 && (
@@ -45,4 +43,4 @@ function MovieReviews({ data, isPending, isError, error }) {
   )
 }
 
-export default MovieReviews
+export default ReviewsList
