@@ -387,7 +387,37 @@ there's no hand-rolled `localStorage.getItem`/`setItem` anywhere.
 
 ---
 
-## 8. Shared components
+## 8. Theme store (Zustand)
+
+`useThemeStore` lives in `src/store/useThemeStore.js`. Same `persist`
+pattern as the wishlist (`name: 'theme'`). Pages almost never import this
+— the toggle lives in the Navbar. You do **not** add `dark:` classes on
+every page; the color tokens swap in `.dark` inside `src/index.css`.
+
+```js
+import useThemeStore from '../store/useThemeStore'
+
+const theme = useThemeStore((state) => state.theme)
+const toggleTheme = useThemeStore((state) => state.toggleTheme)
+```
+
+- `theme` — `'light'` or `'dark'`.
+- `toggleTheme()` — switches between the two. Refreshing the page keeps
+  the last choice because of `persist`.
+
+When the theme is `'dark'`, `Layout` puts a `dark` class on `<html>`.
+Then `--color-background`, `--color-surface`, `--color-dark`, and
+`--color-muted` all change, so `bg-background` / `text-dark` follow
+automatically. Yellow (`bg-primary`) chips and buttons keep black text
+because `.dark .bg-primary` sets `--color-dark` back to black on those
+elements only. The Navbar does **not** keep the `bg-primary` class in
+dark mode (that class would trigger the black-text rule above). It
+switches to `bg-background` instead, and yellow stays as an accent
+(logo + search button).
+
+---
+
+## 9. Shared components
 
 ### `<MovieCard item={movieOrTvObject} mediaType="movie" | "tv" />`
 
@@ -468,7 +498,7 @@ rendering is shared.
 
 ---
 
-## 9. Design tokens (Figma → Tailwind)
+## 10. Design tokens (Figma → Tailwind)
 
 Defined in `@theme` inside `src/index.css` (Tailwind v4 — **there is no
 `tailwind.config.js`**):
@@ -500,16 +530,20 @@ Use them as normal Tailwind classes, e.g.:
 
 There is **no `accent` token** — don't invent one; use `primary` instead.
 
+Dark mode swaps the token values under `.dark` in `src/index.css`
+(`background`, `surface`, `dark`, `muted`). Pages keep using the same
+classes (`bg-background`, `text-dark`). `--color-primary` stays yellow.
+
 ---
 
-## 10. Styling rule (hard rule, not a suggestion)
+## 11. Styling rule (hard rule, not a suggestion)
 
 No inline styles (`style={{...}}`) anywhere in this project. Tailwind
 classes only, so the whole app stays visually consistent.
 
 ---
 
-## 11. Notifications
+## 12. Notifications
 
 `<Toaster />` from `react-hot-toast` is already mounted once in
 `src/main.jsx` — you never mount it again in your own page.
@@ -523,7 +557,7 @@ classes only, so the whole app stays visually consistent.
 
 ---
 
-## 12. Common mistakes to avoid
+## 13. Common mistakes to avoid
 
 - Don't call `tmdbClient`/axios directly from a component — always go
   through a `use*` hook in `/hooks`.
@@ -541,7 +575,7 @@ classes only, so the whole app stays visually consistent.
 
 ---
 
-## 13. Note on TV Show Details
+## 14. Note on TV Show Details
 
 There is **no Figma screen** for `TVShowDetailsPage`. Build it visually
 following the same layout as `MovieDetailsPage`, but using the TV show's

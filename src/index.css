@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: #ffe353;
   --color-background: #ffffff;
@@ -12,6 +14,19 @@
   --color-rating-low: #f47f78;
   --color-rating-track: #081c22;
   --font-sans: 'Roboto', sans-serif;
+}
+
+.dark {
+  --color-background: #111111;
+  --color-surface: #1e1e1e;
+  --color-dark: #f5f5f5;
+  --color-muted: #a3a3a3;
+  color-scheme: dark;
+}
+
+/* Yellow chips/buttons keep black text even after --color-dark inverts. */
+.dark .bg-primary {
+  --color-dark: #000000;
 }
 
 body {
