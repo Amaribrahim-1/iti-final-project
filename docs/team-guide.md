@@ -43,9 +43,10 @@ Other useful scripts: `npm run lint`, `npm run format`, `npm run build`.
 
 ## 2. Folder structure & where things go
 
-This is the actual folder layout that exists in the repo **right now**
-(none of the pages have their own `/components` subfolder yet, because no
-page-only component has been built yet):
+This is the actual folder layout that exists in the repo **right now**.
+Home, Movie Details, and TV Show Details now have their own `/components`
+subfolders for page-only pieces. Shared components live in the top-level
+`/components` folder:
 
 ```
 /pages
@@ -63,7 +64,7 @@ page-only component has been built yet):
     TrendingPage.jsx
   /AIAssistant
     AIAssistantPage.jsx
-/components   <- SHARED across 2+ pages only (MovieCard, Loader, ErrorState, Layout)
+/components   <- SHARED across 2+ pages only (MovieCard, Loader, ErrorState, Layout, Pagination, ReviewsList)
 /hooks
 /store
 /api
@@ -92,7 +93,9 @@ Real example of a component that's already promoted to the shared, top-level
 folder instead: `MovieCard` lives in `src/components/MovieCard.jsx` (not
 inside any single page's folder) because it's reused on Home, Search
 Results, Wishlist, Trending, and inside the recommendations rows on the
-details pages — that's 5+ pages, so it belongs at the top level.
+details pages — that's 5+ pages, so it belongs at the top level. Same rule
+for `Pagination.jsx` (Home, Search Results, Trending) and
+`ReviewsList.jsx` (Movie Details and TV Show Details).
 
 ---
 
@@ -299,26 +302,27 @@ The query only actually runs when `query` is truthy —
 `enabled: Boolean(query)` — so it won't fire a request for an empty search
 box.
 
-### `useTrending()`
+### `useTrending(page)`
 
 ```js
 import useTrending from '../hooks/useTrending'
 
 function Trending() {
-  const { data, isPending, isError, error } = useTrending()
+  const { data, isPending, isError, error } = useTrending(page)
   // data.results is a mix of movies and TV shows
 }
 ```
 
-Calls `/trending/all/day`, **no `page` argument**. `data.results` is a mixed
-array of movies and TV shows — each item already has TMDB's own
-`media_type` field (`"movie"` or `"tv"`), don't invent your own.
+Calls `/trending/all/day`. Takes an optional `page` argument (defaults to
+`1` if you omit it). `data.results` is a mixed array of movies and TV
+shows — each item already has TMDB's own `media_type` field (`"movie"` or
+`"tv"`), don't invent your own. The Trending page also filters out
+`"person"` items (people have no poster/title).
 
 ### Other pieces worth knowing
 
 - **`Layout`** (`src/components/Layout.jsx`) wraps every route and renders
-  the page content via `<Outlet />`. It also has the empty Navbar slot
-  Sahar fills in.
+  the page content via `<Outlet />`. The Navbar lives here (built by Sahar).
 - **`formatDate`** (`src/utils/formatDate.js`) takes a date string
   (`release_date` / `first_air_date`) and returns a display-friendly string
   like `Aug 25, 2023`. Returns `''` for a missing/invalid date.
@@ -425,6 +429,42 @@ A simple, styled error box. Use it for every query's error state.
 
 Already wired into `src/App.jsx` — you never render it yourself, it wraps
 every page automatically.
+
+### `<Pagination currentPage totalPages onPageChange />`
+
+```js
+import Pagination from '../../components/Pagination'
+
+<Pagination
+  currentPage={page}
+  totalPages={totalPages}
+  onPageChange={handlePageChange}
+/>
+```
+
+A numbered pager (page numbers + ellipsis + Prev/Next), not Previous/Next
+buttons only. Used on Home, Search Results, and Trending. `onPageChange`
+receives the new page number — typically you write it into the URL
+(`?page=`) so refresh and the back button keep the right page.
+
+### `<ReviewsList reviews isPending isError error />`
+
+```js
+import ReviewsList from '../../components/ReviewsList'
+
+<ReviewsList
+  reviews={reviews?.results}
+  isPending={isReviewsPending}
+  isError={isReviewsError}
+  error={reviewsError}
+/>
+```
+
+Renders each review's author and content, shows "No reviews yet" when the
+array is empty, and has a Show more/less toggle (3 reviews shown at first).
+Used by both Movie Details and TV Show Details. Each page still calls its
+own reviews hook (`useMovieReviews` / `useTVShowReviews`); only the
+rendering is shared.
 
 ---
 
