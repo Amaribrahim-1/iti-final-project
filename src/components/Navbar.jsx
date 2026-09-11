@@ -43,11 +43,12 @@ function Navbar() {
       }`}
     >
       <div className="flex items-center justify-between gap-4">
-        <Link
-          to="/"
-          className="shrink-0 text-xl font-bold text-dark dark:text-primary"
-        >
-          Movie App
+        <Link to="/" aria-label="Movie App" className="shrink-0">
+          <img
+            src="/favicon.svg"
+            alt=""
+            className="h-9 w-9 rounded-lg ring-1 ring-black/40 dark:ring-0"
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
