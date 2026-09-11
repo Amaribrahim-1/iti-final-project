@@ -216,8 +216,8 @@ This is the only PR for the AI Movie Assistant part of this file.
 
 - [x] Coordinate with Sahar to place the actual toggle control inside the real Navbar (once her Navbar work exists) — if her Navbar isn't merged yet, leave the toggle in a temporary spot for now and revisit this specific step later; it doesn't block the PR below.
 - [x] Test the toggle + persistence once more in the browser.
-- [ ] Push the branch, open a PR from `feature/dark-mode-toggle` into `main` describing the theme store and toggle, then merge it yourself once re-checked.
-- [ ] Delete the `feature/dark-mode-toggle` branch, both locally and on GitHub, once merged — same habit as the other two branches above.
+- [x] Push the branch, open a PR from `feature/dark-mode-toggle` into `main` describing the theme store and toggle, then merge it yourself once re-checked.
+- [x] Delete the `feature/dark-mode-toggle` branch, both locally and on GitHub, once merged — same habit as the other two branches above.
 
 This is the only PR for the Dark/Light Mode part of this file.
 
