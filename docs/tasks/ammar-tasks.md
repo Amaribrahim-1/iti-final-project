@@ -2,7 +2,7 @@
 
 This is the **Foundation** package (Section 5 of the spec). It has to be finished, tested, and merged into `main` before Ibrahim, Sahar, Shahd, and Mariam can start their own packages — they all build against the hooks, store, and components you create here. You work entirely on your own branch(es) below; nobody else touches this code.
 
-There are three parts in this file: the **core foundation** (blocks the team, do this first), the **AI Movie Assistant**, and the **Dark/Light Mode Toggle** (these last two don't block anyone and can be done after you've handed out the task packages).
+There are four parts in this file: the **core foundation** (blocks the team, do this first), the **AI Movie Assistant**, the **Dark/Light Mode Toggle** (these two don't block anyone and can be done after you've handed out the task packages), and a **personal Team Leader README** at the end (not the training README — that's a separate file).
 
 ---
 
@@ -116,6 +116,8 @@ _Tasks 4–7 are the data-hooks cluster — commit after each, push once all fou
 
 **Acceptance criteria:** rendering `<MovieCard />` with a real movie object shows poster/title/rating correctly; clicking the heart toggles it filled/unfilled and actually updates the wishlist store.
 
+> **Note:** The shared-components set later grew beyond the original three (`Loader`, `ErrorState`, `MovieCard`). `Pagination.jsx` (built during Ibrahim's Home page task, reused by Search Results and Trending) and `ReviewsList.jsx` (built during Shahd's TV Details task, reused by both details pages) now also live in `src/components/`. `docs/team-guide.md` does not mention either yet — worth a follow-up doc update.
+
 **Commit now with message:** `feat: add shared moviecard component with wishlist toggle`
 
 _Tasks 8–10 are the state + shared-components cluster — commit after each, push once all three are done._
@@ -220,3 +222,32 @@ This is the only PR for the AI Movie Assistant part of this file.
 This is the only PR for the Dark/Light Mode part of this file.
 
 ---
+
+## Part 4 — Personal README (not the training one)
+
+The course/assignment still wants a normal project `README.md` (what the app is, how to run it, the stack). **That file is separate.** This part is a write-up for *you*: what you actually did as Team Leader, in your own words, so you can reuse it in the graduation defense and when someone asks "what was your role?"
+
+### Task 20 — Write a Team Leader README about the GitHub / PR work
+
+- [ ] Pull the latest `main`. Create branch: `docs/ammar-team-lead-readme`.
+- [ ] Create `docs/ammar-team-lead.md` — do **not** overwrite the project `README.md` the training asks for.
+- [ ] Write it in your own words (Arabic or English, whatever you'll actually say out loud). Keep it short and concrete. Focus on what **you** did as Team Leader, not a list of every feature the app has. Cover at least:
+  - how the team worked on **feature branches** (one package / one branch / one PR)
+  - how a teammate opened a **Pull Request** into `main`, and what you checked before merging (does it match the task? does the page work in the browser?)
+  - one or two real examples from this project (e.g. reviewing Shahd's Movie Details / TV Details PRs, merging Mariam's Trending PR, leaving notes on a PR)
+  - what you did after a merge (`git checkout main`, `git pull`, deleting the old branch) so everyone stayed on the same `main`
+- [ ] Do **not** turn it into a Git tutorial, and do **not** copy-paste command dumps. Write it like you're explaining your role to an instructor in 2–3 minutes.
+
+**Acceptance criteria:** `docs/ammar-team-lead.md` exists next to the normal project README (not instead of it); someone reading only this file can tell you were the Team Leader and that your main extra work was GitHub + reviewing/merging PRs, not just writing foundation code.
+
+**Commit now with message:** `docs: add personal team-lead readme about github and prs`
+
+**Push now** (`git push -u origin docs/ammar-team-lead-readme`).
+
+- [ ] Open a Pull Request from `docs/ammar-team-lead-readme` into `main`, then merge it yourself once you've re-read the file and it sounds like you.
+- [ ] Delete the `docs/ammar-team-lead-readme` branch, both locally and on GitHub, once merged.
+
+This is the only PR for this personal README. The training `README.md` (app setup / how to run) stays its own task whenever the course asks for it — don't mix the two files.
+
+---
+

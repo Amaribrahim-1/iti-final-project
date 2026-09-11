@@ -10,35 +10,43 @@ If anything about the hooks or the data shape below is unclear, ask in the group
 
 ### Task 1 — Pull latest `main` and build the Movie Details core info section
 
-- [ ] Pull the latest `main` branch (this brings in Ammar's foundation — routes, hooks, store, and shared components). "Pulling" means downloading the latest changes from the shared repo before you start your own work.
-- [ ] Create your feature branch (a separate copy of the code you work on so you don't touch `main` directly) with the exact name: `feature/movie-details-page`.
-- [ ] Open `pages/MovieDetails/MovieDetailsPage.jsx` (Ammar already created this empty file and linked it to URLs like `/movie/550`). Read the `id` from the URL with `useParams` from `react-router`.
-- [ ] Call `useMovieDetails(id)` from `/hooks/useMovieDetails.js` (import it exactly from that path) — it returns the standard shape `{ data, isPending, isError, error }`, with the full movie object in `data` (fields like `title`, `overview`, `vote_average`, `genres`, `release_date`, `poster_path`).
-- [ ] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Build the core info section: poster image (use `buildImageUrl` from `/utils/buildImageUrl.js` to turn `poster_path` into a full image URL), title, overview, rating, and genres.
+- [x] Pull the latest `main` branch (this brings in Ammar's foundation — routes, hooks, store, and shared components). "Pulling" means downloading the latest changes from the shared repo before you start your own work.
+- [x] Create your feature branch (a separate copy of the code you work on so you don't touch `main` directly) with the exact name: `feature/movie-details-page`.
+- [x] Open `pages/MovieDetails/MovieDetailsPage.jsx` (Ammar already created this empty file and linked it to URLs like `/movie/550`). Read the `id` from the URL with `useParams` from `react-router`.
+- [x] Call `useMovieDetails(id)` from `/hooks/useMovieDetails.js` (import it exactly from that path) — it returns the standard shape `{ data, isPending, isError, error }`, with the full movie object in `data` (fields like `title`, `overview`, `vote_average`, `genres`, `release_date`, `poster_path`).
+- [x] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [x] Build the core info section: poster image (use `buildImageUrl` from `/utils/buildImageUrl.js` to turn `poster_path` into a full image URL), title, overview, rating, and genres.
 
 **Acceptance criteria:** navigating to `/movie/:id` with a real movie id shows the poster, title, overview, rating, and genres for that exact movie; loading and error states show correctly.
+
+> **Note:** The core info section also includes extra fields beyond the literal list: spoken languages, a production company logo, an external "Website" link from `data.homepage`, and a wishlist heart toggle placed directly in the core info header itself (the task only asked for the heart to work inside the recommendation cards, not on the main details header).
 
 **Commit now with message:** `feat: add movie details page with core info section`
 
 ### Task 2 — Movie Details recommendations row
 
-- [ ] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the core info section, call `useMovieRecommendations(id)` from `/hooks/useMovieRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 1 — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the recommended movies are in `data.results`.
-- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="movie" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/movie/:id` via its own inner `Link` — don't wrap it in another `Link` yourself.
+- [x] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the core info section, call `useMovieRecommendations(id)` from `/hooks/useMovieRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 1 — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the recommended movies are in `data.results`.
+- [x] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [x] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="movie" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/movie/:id` via its own inner `Link` — don't wrap it in another `Link` yourself.
 
 **Acceptance criteria:** the recommendations row shows real recommended movies as cards; this section has its own loading/error UI; clicking a heart icon on a card correctly toggles it in the wishlist.
+
+> **Note:** This section got a "Show more / Show less" toggle (6 recommendations shown initially) — a UX addition not requested in the written task.
 
 **Commit now with message:** `feat: add movie details recommendations row`
 
 ### Task 3 — Movie Details reviews list
 
-- [ ] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the recommendations row, call `useMovieReviews(id)` from `/hooks/useMovieReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the reviews are in `data.results`.
-- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render each review with at least the author's name and the review content (truncate long reviews if needed for layout).
-- [ ] If `data.results` is an empty array, show a simple "No reviews yet" message instead of an empty section.
+- [x] Still inside `pages/MovieDetails/MovieDetailsPage.jsx`, below the recommendations row, call `useMovieReviews(id)` from `/hooks/useMovieReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the reviews are in `data.results`.
+- [x] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [x] Render each review with at least the author's name and the review content (truncate long reviews if needed for layout).
+- [x] If `data.results` is an empty array, show a simple "No reviews yet" message instead of an empty section.
 
 **Acceptance criteria:** the reviews section has its own loading/error UI; it shows real reviews for a movie that has them, and shows the "No reviews yet" message for a movie that has none.
+
+> **Note:** This section got a "Show more / Show less" toggle (3 reviews shown initially) — a UX addition not requested in the written task.
+
+> **Note:** A fix was also made in the **shared** `Layout.jsx` (`fix(layout): restore scroll position when navigating between movies`) — added `<ScrollRestoration />` from `react-router` to keep scroll position when navigating between detail pages. This touches a foundation file Ammar owns, not just this details page.
 
 **Commit now with message:** `feat: add movie details reviews list`
 
@@ -48,7 +56,7 @@ _Tasks 1–3 build the whole Movie Details page and are tightly related — comm
 
 ### Task 4 — Styling pass (Movie Details only)
 
-- [ ] Compare the Movie Details page against the Figma file (`https://www.figma.com/file/jvGvsGLg6X3T7JPU3E2rNl/Movie-App`) and adjust spacing, colors, and layout to match — use the Tailwind design tokens Ammar set up (e.g. `bg-primary`) instead of picking your own colors.
+- [x] Compare the Movie Details page against the Figma file (`https://www.figma.com/file/jvGvsGLg6X3T7JPU3E2rNl/Movie-App`) and adjust spacing, colors, and layout to match — use the Tailwind design tokens Ammar set up (e.g. `bg-primary`) instead of picking your own colors.
 
 **Acceptance criteria:** the Movie Details page closely matches the Figma reference.
 
@@ -58,10 +66,10 @@ _Tasks 1–3 build the whole Movie Details page and are tightly related — comm
 
 ### Task 5 — Open the Pull Request for Movie Details (final task of this branch)
 
-- [ ] Push the branch if you haven't already (`git push -u origin feature/movie-details-page`).
-- [ ] Open a Pull Request (PR — a request asking the Team Leader to review and merge your branch into `main`) from `feature/movie-details-page` into `main`.
-- [ ] In the PR description, briefly state what you built (Movie Details page: core info, recommendations, reviews) and attach a screenshot since this is a UI task.
-- [ ] Tag Ammar as the reviewer.
+- [x] Push the branch if you haven't already (`git push -u origin feature/movie-details-page`).
+- [x] Open a Pull Request (PR — a request asking the Team Leader to review and merge your branch into `main`) from `feature/movie-details-page` into `main`.
+- [x] In the PR description, briefly state what you built (Movie Details page: core info, recommendations, reviews) and attach a screenshot since this is a UI task.
+- [x] Tag Ammar as the reviewer.
 
 This is the only Pull Request for the Movie Details branch — if Ammar asks for changes, make the fix on this same `feature/movie-details-page` branch, commit, and push again. The same PR updates automatically; you don't open a new one.
 
@@ -73,13 +81,13 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 
 ### Task 6 — Pull latest `main` and build the TV Show Details core info section
 
-- [ ] Pull the latest `main` branch (it now includes your merged Movie Details page).
-- [ ] Create your second feature branch with the exact name: `feature/tv-show-details-page`.
-- [ ] Open `pages/TVShowDetails/TVShowDetailsPage.jsx` (Ammar already created this empty file and linked it to URLs like `/tv/1396`). Read the `id` from the URL with `useParams` from `react-router`.
-- [ ] Call `useTVShowDetails(id)` from `/hooks/useTVShowDetails.js` (import it exactly from that path). It returns the standard shape `{ data, isPending, isError, error }`, but with the **TV field names**, not the movie ones: `name` (not `title`), `first_air_date` (not `release_date`), `number_of_seasons`, `number_of_episodes`, plus `overview`, `vote_average`, `genres`, `poster_path` like before.
-- [ ] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Build this as its own separate component (not a shared "Details" component reused from Task 1) — this is a deliberate spec decision to keep each page simple and reading its own real fields directly.
-- [ ] There's no Figma screen for this page, so for now just get the same sections in place: poster (use `buildImageUrl` from `/utils/buildImageUrl.js` with `poster_path`) + core info (name, first air date, number of seasons/episodes, overview, rating, genres).
+- [x] Pull the latest `main` branch (it now includes your merged Movie Details page).
+- [x] Create your second feature branch with the exact name: `feature/tv-show-details-page`.
+- [x] Open `pages/TVShowDetails/TVShowDetailsPage.jsx` (Ammar already created this empty file and linked it to URLs like `/tv/1396`). Read the `id` from the URL with `useParams` from `react-router`.
+- [x] Call `useTVShowDetails(id)` from `/hooks/useTVShowDetails.js` (import it exactly from that path). It returns the standard shape `{ data, isPending, isError, error }`, but with the **TV field names**, not the movie ones: `name` (not `title`), `first_air_date` (not `release_date`), `number_of_seasons`, `number_of_episodes`, plus `overview`, `vote_average`, `genres`, `poster_path` like before.
+- [x] While `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [x] Build this as its own separate component (not a shared "Details" component reused from Task 1) — this is a deliberate spec decision to keep each page simple and reading its own real fields directly.
+- [x] There's no Figma screen for this page, so for now just get the same sections in place: poster (use `buildImageUrl` from `/utils/buildImageUrl.js` with `poster_path`) + core info (name, first air date, number of seasons/episodes, overview, rating, genres).
 
 **Acceptance criteria:** navigating to `/tv/:id` with a real TV show id shows the poster, name, first air date, number of seasons/episodes, overview, rating, and genres for that exact show.
 
@@ -87,9 +95,9 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 
 ### Task 7 — TV Show Details recommendations row
 
-- [ ] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the core info section, call `useTVShowRecommendations(id)` from `/hooks/useTVShowRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 6 — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the recommended TV shows are in `data.results`.
-- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="tv" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/tv/:id` via its own inner `Link` — don't wrap it in another `Link` yourself. Same component as the movie recommendations row, just with `mediaType="tv"` this time since these results are TV shows, not movies.
+- [x] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the core info section, call `useTVShowRecommendations(id)` from `/hooks/useTVShowRecommendations.js` (import it exactly from that path). Pass it the same `id` you already got from `useParams` in Task 6 — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the recommended TV shows are in `data.results`.
+- [x] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [x] Render `data.results` as a horizontal row (or grid) of `<MovieCard item={item} mediaType="tv" />` from `/components/MovieCard.jsx` — this shared component already handles the poster, title, date, rating ring, and wishlist heart icon internally, and already navigates to `/tv/:id` via its own inner `Link` — don't wrap it in another `Link` yourself. Same component as the movie recommendations row, just with `mediaType="tv"` this time since these results are TV shows, not movies.
 
 **Acceptance criteria:** the recommendations row shows real recommended TV shows as cards; this section has its own loading/error UI; clicking a heart icon on a card correctly toggles it in the wishlist.
 
@@ -97,16 +105,18 @@ This is the only Pull Request for the Movie Details branch — if Ammar asks for
 
 ### Task 8 — TV Show Details reviews list
 
-- [ ] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the recommendations row, call `useTVShowReviews(id)` from `/hooks/useTVShowReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the reviews are in `data.results`.
-- [ ] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
-- [ ] Render each review with at least the author's name and the review content (truncate long reviews if needed for layout) — same approach as the movie reviews list in Task 3.
-- [ ] If `data.results` is an empty array, show a simple "No reviews yet" message instead of an empty section.
+- [x] Still inside `pages/TVShowDetails/TVShowDetailsPage.jsx`, below the recommendations row, call `useTVShowReviews(id)` from `/hooks/useTVShowReviews.js` (import it exactly from that path). Pass it the same `id` from `useParams` — do not create a new variable. It returns the standard shape `{ data, isPending, isError, error }`; the reviews are in `data.results`.
+- [x] While this section's `isPending` is true, show `<Loader />` from `/components/Loader.jsx`. If `isError` is true, show `<ErrorState message="..." />` from `/components/ErrorState.jsx`.
+- [x] Render each review with at least the author's name and the review content (truncate long reviews if needed for layout) — same approach as the movie reviews list in Task 3.
+- [x] If `data.results` is an empty array, show a simple "No reviews yet" message instead of an empty section.
 
 **Acceptance criteria:** the reviews section has its own loading/error UI; it shows real reviews for a TV show that has them, and shows the "No reviews yet" message for a TV show that has none.
 
 **Commit now with message:** `feat: add tv show details reviews list`
 
 **Optional (not required — skip this if you want, no impact on your PR):** The two details pages must stay separate (do not merge them into one generic Details page — movie and TV use different field names like `title` vs `name`). If you'd like to practice reuse after Task 8, the reviews section is the safe piece to share: TMDB review objects look the same on both pages (`author` and `content`).
+
+- [x] Optional `ReviewsList` extraction (implemented in the merged code).
 
 How, in short:
 1. Create `src/components/ReviewsList.jsx` (it gets used by two pages, so it belongs in the shared `/components` folder, not inside one page).
@@ -118,15 +128,19 @@ If you skip this, copying the reviews markup into both pages is still correct.
 
 If you do it: make a **new commit** on this same `feature/tv-show-details-page` branch (do not fold it into the Task 8 commit) with message: `refactor: extract shared reviewslist for movie and tv details`. Do **not** open a separate Pull Request — this goes out with the same TV Show Details PR (updating `MovieDetailsPage.jsx` on this branch is fine because Movie Details is already merged into `main`). If that PR is already open, just push the extra commit and the PR updates automatically. Then continue with the push below / Task 9.
 
+> **Note:** This optional block was done. `src/components/ReviewsList.jsx` was created exactly as described and is used by both details pages. It also picked up the same "Show more / Show less" behavior as the recommendations sections.
+
 _Tasks 6–8 build the whole TV Show Details page and are tightly related — commit after each one individually (as above), but only push to the remote once Task 8 is done._
 
 **Push now** (`git push -u origin feature/tv-show-details-page`) — this covers Tasks 6, 7, and 8.
 
 ### Task 9 — Styling pass (TV Show Details only, using Movie Details as reference)
 
-- [ ] Since there's no Figma screen for TV Show Details, use your now-merged, now-styled Movie Details page as the visual reference and adapt the same layout approach to the TV page's fields (including its recommendations row and reviews list from Tasks 7 and 8), so the two pages feel like part of the same app even though they're separate components.
+- [x] Since there's no Figma screen for TV Show Details, use your now-merged, now-styled Movie Details page as the visual reference and adapt the same layout approach to the TV page's fields (including its recommendations row and reviews list from Tasks 7 and 8), so the two pages feel like part of the same app even though they're separate components.
 
 **Acceptance criteria:** the TV Show Details page closely matches the adapted Movie Details look, and someone flipping between a movie's page and a TV show's page can tell they're clearly part of the same design.
+
+> **Note:** The TV info component mirrors all the same extra fields added to the movie version (spoken languages, production logo, homepage link, wishlist heart).
 
 **Commit now with message:** `style: polish tv show details page for visual consistency with movie details`
 
@@ -134,10 +148,10 @@ _Tasks 6–8 build the whole TV Show Details page and are tightly related — co
 
 ### Task 10 — Open the Pull Request for TV Show Details (final task)
 
-- [ ] Push the branch if you haven't already (`git push -u origin feature/tv-show-details-page`).
-- [ ] Open a Pull Request from `feature/tv-show-details-page` into `main`.
-- [ ] In the PR description, briefly state what you built (TV Show Details page: core info, recommendations, reviews) and attach a screenshot since this is a UI task.
-- [ ] Tag Ammar as the reviewer.
+- [x] Push the branch if you haven't already (`git push -u origin feature/tv-show-details-page`).
+- [x] Open a Pull Request from `feature/tv-show-details-page` into `main`.
+- [x] In the PR description, briefly state what you built (TV Show Details page: core info, recommendations, reviews) and attach a screenshot since this is a UI task.
+- [x] Tag Ammar as the reviewer.
 
 This is the only Pull Request for the TV Show Details branch — if Ammar asks for changes, make the fix on this same `feature/tv-show-details-page` branch, commit, and push again.
 
