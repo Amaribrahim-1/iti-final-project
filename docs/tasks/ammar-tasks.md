@@ -171,9 +171,9 @@ This is the only PR for the **core foundation** part of this file. The AI Assist
 
 ### Task 15 — Chat UI
 
-- [ ] Pull the latest `main` (now includes your merged foundation). Create branch: `feature/ai-movie-assistant`.
-- [ ] Build the chat UI on the `/ai-assistant` route (already registered in Task 2): a message list that visually distinguishes user messages from AI messages, a text input + send button, a loading state while waiting for a response, and a graceful error message (using `<ErrorState />`) if something fails.
-- [ ] Wire it to local component state only for now — no real Gemini calls yet, just fake/echoed responses to prove the UI works.
+- [x] Pull the latest `main` (now includes your merged foundation). Create branch: `feature/ai-movie-assistant`.
+- [x] Build the chat UI on the `/ai-assistant` route (already registered in Task 2): a message list that visually distinguishes user messages from AI messages, a text input + send button, a loading state while waiting for a response, and a graceful error message (using `<ErrorState />`) if something fails.
+- [x] Wire it to local component state only for now — no real Gemini calls yet, just fake/echoed responses to prove the UI works.
 
 **Acceptance criteria:** typing a message and hitting send adds it to the message list, shows a loading state briefly, then shows a fake AI reply, all visually distinct.
 
@@ -181,9 +181,9 @@ This is the only PR for the **core foundation** part of this file. The AI Assist
 
 ### Task 16 — Gemini API integration
 
-- [ ] Wire the chat to the real Gemini API, reading the key from `import.meta.env.VITE_GEMINI_API_KEY`.
-- [ ] Send the current message plus the prior conversation turns (so it's a real multi-turn conversation, not single-shot).
-- [ ] Write a system prompt that restricts the assistant to movie/TV topics only — off-topic questions should get a polite redirect back to movie/TV topics.
+- [x] Wire the chat to the real Gemini API, reading the key from `import.meta.env.VITE_GEMINI_API_KEY`.
+- [x] Send the current message plus the prior conversation turns (so it's a real multi-turn conversation, not single-shot).
+- [x] Write a system prompt that restricts the assistant to movie/TV topics only — off-topic questions should get a polite redirect back to movie/TV topics.
 
 **Acceptance criteria:** asking a real movie question gets a relevant real answer; asking something clearly off-topic (e.g. "what's the weather today") gets a polite redirect instead of an answer; asking a follow-up question that depends on the previous message works correctly (proves conversation history is being sent).
 
@@ -191,7 +191,7 @@ This is the only PR for the **core foundation** part of this file. The AI Assist
 
 ### Task 17 — Final polish and PR (final task of Part 2)
 
-- [ ] Test the full conversation flow yourself in the browser: multi-turn conversation, off-topic redirect, loading state, and a deliberate API error (e.g. temporarily break the key) to confirm the error state shows gracefully.
+- [x] Test the full conversation flow yourself in the browser: multi-turn conversation, off-topic redirect, loading state, and a deliberate API error (e.g. temporarily break the key) to confirm the error state shows gracefully.
 - [ ] Push the branch, open a PR from `feature/ai-movie-assistant` into `main` describing the chatbot and its system prompt, then merge it yourself once you've re-checked it.
 - [ ] Delete the `feature/ai-movie-assistant` branch, both locally and on GitHub, before starting Part 3.
 
