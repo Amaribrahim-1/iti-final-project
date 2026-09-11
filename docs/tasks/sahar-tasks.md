@@ -60,10 +60,12 @@ _Tasks 1 and 2 are a tightly related setup cluster — commit after each one ind
 
 ### Task 5 — Dark/Light mode toggle button (only once Ammar's theme store is ready)
 
-- [ ] Check with Ammar whether `useThemeStore()` in `/store/useThemeStore.js` has been merged into `main` yet. **If it hasn't**, skip this task for now and go straight to Task 6 (opening your PR) — you can come back and add this toggle later as one small extra commit on this same branch, pushed directly with no new PR needed (as long as the PR is still open/unmerged).
-- [ ] If it has been merged: pull it into your branch, add a toggle button/switch to the Navbar, and wire it to `useThemeStore()` (following whatever toggle function Ammar's store exposes).
+- [x] Check with Ammar whether `useThemeStore()` in `/store/useThemeStore.js` has been merged into `main` yet. **If it hasn't**, skip this task for now and go straight to Task 6 (opening your PR) — you can come back and add this toggle later as one small extra commit on this same branch, pushed directly with no new PR needed (as long as the PR is still open/unmerged).
+- [x] If it has been merged: pull it into your branch, add a toggle button/switch to the Navbar, and wire it to `useThemeStore()` (following whatever toggle function Ammar's store exposes).
 
 **Acceptance criteria:** clicking the toggle switches the site between light and dark mode, and the button is placed neatly among the other Navbar icons.
+
+> **Note:** The Navbar PR was already merged before the theme store existed, so this toggle was added on Ammar's `feature/dark-mode-toggle` branch (same Navbar file) instead of a follow-up commit on `feature/navbar`.
 
 **Commit now with message:** `feat: add dark/light mode toggle to navbar`
 

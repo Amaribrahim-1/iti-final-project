@@ -203,10 +203,10 @@ This is the only PR for the AI Movie Assistant part of this file.
 
 ### Task 18 — Theme store and Tailwind wiring
 
-- [ ] Pull the latest `main`. Create branch: `feature/dark-mode-toggle`.
-- [ ] Build `useThemeStore()` (Zustand) in `/store/useThemeStore.js` holding the current theme (`'light'` or `'dark'`), persisted with `persist` from `zustand/middleware` — same pattern as the wishlist store (Task 8), not a hand-rolled `localStorage` read/write.
-- [ ] Configure Tailwind for `dark:` variant classes, and apply the `dark` class to the root HTML element based on the store's current value.
-- [ ] Add the toggle control itself somewhere temporary for now (real placement inside the Navbar is Task 19) — coordinate the final placement with Sahar since the Navbar is her package.
+- [x] Pull the latest `main`. Create branch: `feature/dark-mode-toggle`.
+- [x] Build `useThemeStore()` (Zustand) in `/store/useThemeStore.js` holding the current theme (`'light'` or `'dark'`), persisted with `persist` from `zustand/middleware` — same pattern as the wishlist store (Task 8), not a hand-rolled `localStorage` read/write.
+- [x] Configure Tailwind for `dark:` variant classes, and apply the `dark` class to the root HTML element based on the store's current value.
+- [x] Add the toggle control itself somewhere temporary for now (real placement inside the Navbar is Task 19) — coordinate the final placement with Sahar since the Navbar is her package.
 
 **Acceptance criteria:** clicking the toggle switches the theme and any element using a `dark:` class visibly changes; refreshing the page keeps the theme you last picked (because of `localStorage`).
 
@@ -214,8 +214,8 @@ This is the only PR for the AI Movie Assistant part of this file.
 
 ### Task 19 — Navbar placement and final PR (final task of Part 3)
 
-- [ ] Coordinate with Sahar to place the actual toggle control inside the real Navbar (once her Navbar work exists) — if her Navbar isn't merged yet, leave the toggle in a temporary spot for now and revisit this specific step later; it doesn't block the PR below.
-- [ ] Test the toggle + persistence once more in the browser.
+- [x] Coordinate with Sahar to place the actual toggle control inside the real Navbar (once her Navbar work exists) — if her Navbar isn't merged yet, leave the toggle in a temporary spot for now and revisit this specific step later; it doesn't block the PR below.
+- [x] Test the toggle + persistence once more in the browser.
 - [ ] Push the branch, open a PR from `feature/dark-mode-toggle` into `main` describing the theme store and toggle, then merge it yourself once re-checked.
 - [ ] Delete the `feature/dark-mode-toggle` branch, both locally and on GitHub, once merged — same habit as the other two branches above.
 
