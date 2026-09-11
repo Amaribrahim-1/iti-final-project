@@ -192,8 +192,8 @@ This is the only PR for the **core foundation** part of this file. The AI Assist
 ### Task 17 — Final polish and PR (final task of Part 2)
 
 - [x] Test the full conversation flow yourself in the browser: multi-turn conversation, off-topic redirect, loading state, and a deliberate API error (e.g. temporarily break the key) to confirm the error state shows gracefully.
-- [ ] Push the branch, open a PR from `feature/ai-movie-assistant` into `main` describing the chatbot and its system prompt, then merge it yourself once you've re-checked it.
-- [ ] Delete the `feature/ai-movie-assistant` branch, both locally and on GitHub, before starting Part 3.
+- [x] Push the branch, open a PR from `feature/ai-movie-assistant` into `main` describing the chatbot and its system prompt, then merge it yourself once you've re-checked it.
+- [x] Delete the `feature/ai-movie-assistant` branch, both locally and on GitHub, before starting Part 3.
 
 This is the only PR for the AI Movie Assistant part of this file.
 
