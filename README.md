@@ -1,19 +1,77 @@
-# React + Vite
+# Movie App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite movie discovery app built with TMDB data, wishlist support, themed UI, and AI-assisted movie recommendations.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project is a movie and TV browsing application where users can:
 
-## React Compiler
+- browse popular movies and TV shows
+- view details for each movie or TV show
+- search for content
+- save titles to a wishlist
+- explore trending content
+- chat with an AI movie assistant
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Tech Stack
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+- React
+- Vite
+- JavaScript
+- Tailwind CSS
+- React Router
+- TanStack Query
+- Zustand
+- Axios
+- TMDB API
+- Gemini API for the AI assistant
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Home page with Movies/TV tabs
+- Pagination for list views
+- Movie and TV details pages
+- Search results page
+- Wishlist management with persistent state
+- Trending page
+- Theme toggle
+- AI assistant for movie/TV-related questions
+
+## Project Structure
+
+```bash
+src/
+  api/
+  components/
+  hooks/
+  pages/
+  store/
+  utils/
+```
+
+## Environment Variables
+
+Create a `.env` file in the project root with the following values:
+
+```bash
+VITE_TMDB_API_KEY=your_tmdb_api_key
+VITE_GEMINI_API_KEY=your_gemini_api_key
+```
+
+## Scripts
+
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
+
+## Notes
+
+This app follows the project specification in the docs folder and is intended for the final graduation project.
+
+## License
+
+This project is for educational use within the course assignment.
