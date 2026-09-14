@@ -543,21 +543,7 @@ classes only, so the whole app stays visually consistent.
 
 ---
 
-## 12. Notifications
-
-`<Toaster />` from `react-hot-toast` is already mounted once in
-`src/main.jsx` — you never mount it again in your own page.
-
-- Use `toast.success(...)` / `toast.error(...)` only for short
-  confirmations (e.g. "Added to wishlist").
-- Use `<Loader />` / `<ErrorState />` for actual query loading/failure
-  states.
-- Never use one in place of the other — a toast is not a replacement for a
-  loading spinner or an error box, and vice versa.
-
----
-
-## 13. Common mistakes to avoid
+## 12. Common mistakes to avoid
 
 - Don't call `tmdbClient`/axios directly from a component — always go
   through a `use*` hook in `/hooks`.
@@ -575,7 +561,7 @@ classes only, so the whole app stays visually consistent.
 
 ---
 
-## 14. Note on TV Show Details
+## 13. Note on TV Show Details
 
 There is **no Figma screen** for `TVShowDetailsPage`. Build it visually
 following the same layout as `MovieDetailsPage`, but using the TV show's

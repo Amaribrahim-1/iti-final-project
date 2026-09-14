@@ -40,7 +40,6 @@ None of the 5 members have used GitHub collaboratively before (no PRs, no merge/
 | Global state (theme)    | Zustand (bonus feature, see Section 5)                                                                                   |
 | Styling                 | Tailwind CSS                                                                                                             |
 | Icons                   | lucide-react                                                                                                             |
-| Notifications           | react-hot-toast — already installed and mounted once as `<Toaster />` in `src/main.jsx`; use `toast.success(...)` / `toast.error(...)` for short confirmations only, never as a replacement for `<Loader />` / `<ErrorState />` |
 | AI chatbot              | Gemini API, called directly from the frontend (explicitly allowed by the assignment — no backend needed to hide the key) |
 
 **Environment variables** (`.env`, must be gitignored):
